@@ -1,6 +1,89 @@
 ---
 title: "Anti-Smurfing Policy"
-description: "Rules around multiple accounts and identity verification."
+description: "What smurfing means in C3 Esports, how it is detected, and the consequences."
 ---
 
-<Note>This page is coming soon.</Note>
+Smurfing undermines the integrity of a competitive league. C3 Esports has a zero-tolerance policy for smurfing in all forms.
+
+---
+
+## What smurfing means in C3 Esports
+
+In the context of C3 Esports, "smurfing" refers to any of the following:
+
+- **Playing under a false identity** — using a C3 Esports account registered to someone else
+- **Account sharing** — letting another person log in and play matches using your account
+- **Skill misrepresentation** — intentionally registering in a lower division than your true skill level to dominate less-skilled players (this is enforced through division placement policies and staff review, not the identity system)
+- **Multi-accounting** — creating a second C3 Esports account to circumvent a ban, avoid a reputation, or join multiple teams simultaneously
+
+<Note>
+  Smurfing is distinct from playing with a screen name different from your real name. You are welcome to use any username on the platform — what matters is that **one real person** operates **one C3 Esports account** and plays under their **registered Epic Games username**.
+</Note>
+
+---
+
+## How smurfing is detected
+
+C3 Esports uses several mechanisms to detect identity mismatches:
+
+### Replay parsing
+
+Every uploaded `.replay` file contains the **Epic Games username** of each player who participated in the game. The platform automatically compares these usernames against the registered C3 Esports players on both rosters.
+
+If a replay contains an Epic username that does not match any registered player, a flag is raised for staff review.
+
+{/* TODO: add screenshot */}
+![Match detail page showing a yellow "Unknown Player" flag on a replay entry with an Epic username that does not match any roster player](../images/anti-smurfing-flag.png)
+
+### Manual reports
+
+Players and managers can report suspected smurfing via a staff ticket in the C3 Esports Discord. Include:
+- The suspicious Epic username observed in the game
+- A screenshot of the in-game lobby or scoreboard showing the player
+- The match and game in question
+
+### Cross-referencing
+
+Staff may cross-reference account details (email domain, Discord account age, IP address) if a report warrants deeper investigation.
+
+---
+
+## Keeping your Epic username accurate
+
+Your Epic Games username is linked to your C3 Esports profile so that replays can be matched to your account. To set or update your Epic username:
+
+1. Go to your profile settings at [c3esports.com/profile/settings](https://c3esports.com/profile/settings).
+2. Find the **Epic Games Username** field.
+3. Enter your current Epic Games display name exactly as it appears in Rocket League.
+4. Save.
+
+<Warning>
+  If you change your Epic Games username in the Epic Games launcher, you must also update it in C3 Esports. Failing to update may cause your replay entries to show as "Unknown Player" and trigger a review.
+</Warning>
+
+---
+
+## Consequences
+
+| Violation | Consequence |
+|---|---|
+| First offense — account sharing / playing as another user | Immediate **1-season ban** for both accounts involved. Match results involving the violation may be reversed. |
+| First offense — multi-accounting to evade a ban | Permanent ban on all associated accounts |
+| Repeated offenses | Permanent ban |
+
+Account sharing consequences apply to **both** the account owner and the person who played. "I let my friend borrow my account" does not reduce the penalty — both parties are responsible.
+
+---
+
+## Reporting suspected smurfing
+
+If you believe the opposing team played someone who is not on their registered roster:
+
+1. Note the Epic username you saw in the lobby or scoreboard.
+2. Screenshot the lobby or scoreboard showing the name.
+3. After the match, your manager files a dispute (reason: **Ineligible player**) and includes the suspicious Epic username and screenshot as evidence.
+4. Staff will compare the Epic username against replay data and roster records.
+
+<Tip>
+  Taking a screenshot of the lobby before the game starts is a great habit. It takes 5 seconds and gives you a clean record of who was in the lobby if a dispute arises later.
+</Tip>

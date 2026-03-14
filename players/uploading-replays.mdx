@@ -1,6 +1,131 @@
 ---
-title: "Uploading a Replay"
-description: "How to upload Rocket League replay files to a match."
+title: "Uploading Replay Files"
+description: "How to find your Rocket League .replay files and upload them to a match."
 ---
 
-<Note>This page is coming soon.</Note>
+Every game in a C3 Esports match requires a `.replay` file to be uploaded. Replays are automatically parsed to verify scores and extract player stats. This guide explains where to find your replay files and how to upload them.
+
+<Warning>
+  Replays must be uploaded within **2 hours** of match completion. Failure to upload on time may result in score reversal or a match forfeiture ruling. Do not delay — find your files immediately after the match.
+</Warning>
+
+---
+
+## Where replay files are stored on your PC
+
+Rocket League saves a `.replay` file automatically after every game you play. The default location depends on your operating system:
+
+<AccordionGroup>
+  <Accordion title="Windows">
+    ```
+    C:\Users\YourUsername\Documents\My Games\Rocket League\TAGame\Demos\
+    ```
+
+    Replace `YourUsername` with your Windows username. You can also paste this directly into File Explorer's address bar:
+
+    ```
+    %USERPROFILE%\Documents\My Games\Rocket League\TAGame\Demos
+    ```
+  </Accordion>
+  <Accordion title="Mac (if using a compatibility layer)">
+    Rocket League is not natively available on Mac. If you are using a PC or a service like GeForce NOW, replay files are stored on the host system — check with your service provider for file access.
+  </Accordion>
+</AccordionGroup>
+
+{/* TODO: add screenshot */}
+![Windows File Explorer showing the Demos folder containing several .replay files with timestamps](../images/uploading-replays-folder.png)
+
+<Tip>
+  Sort the folder by **Date Modified** (newest first) to quickly find your most recent replays. The files will be named with a long alphanumeric ID — match them to the correct game by their timestamps.
+</Tip>
+
+---
+
+## Identifying the right replay file
+
+Each replay file name is a random UUID (e.g., `A1B2C3D4E5F6...`). To find the right one:
+
+1. Look at the **Date Modified** timestamp — it should match the time your game ended.
+2. If you are unsure, open the replay in Rocket League's in-game replay viewer to verify it is the correct game.
+
+**One replay per game.** If your series went 2 games, you need 2 files. If it went 3 games, you need 3 files. Upload the correct replay for each game slot.
+
+---
+
+## How to upload a replay
+
+<Steps>
+  <Step title="Go to the match page">
+    Find your match at [c3esports.com/matches](https://c3esports.com/matches). The replay upload section is on the match page, tied to the result submission form.
+  </Step>
+  <Step title="Submit scores (or find existing game slots)">
+    If your manager is submitting results, they will fill in scores for each game. Each game slot has a file upload button. If you are the one uploading, coordinate with your manager to make sure the right replay goes with the right game.
+
+    {/* TODO: add screenshot */}
+    ![Result submission form showing Game 1, Game 2, Game 3 slots each with a score field and a "Upload Replay" button](../images/uploading-replays-form.png)
+  </Step>
+  <Step title="Click Upload Replay for each game">
+    Click the **Upload Replay** button next to the correct game and select the `.replay` file from your Demos folder.
+
+    <Note>
+      Only `.replay` files are accepted. Do not upload video files, screenshots, or any other format. The maximum file size per replay is typically around 5MB — standard Rocket League replays are well under this limit.
+    </Note>
+  </Step>
+  <Step title="Wait for upload confirmation">
+    After uploading, the file is sent to ballchasing.com for parsing. You will see a status indicator:
+
+    - **Uploading** — file is being sent
+    - **Processing** — ballchasing.com is parsing the replay
+    - **Parsed** — data extracted successfully
+    - **Failed** — see [Troubleshooting](#troubleshooting) below
+
+    {/* TODO: add screenshot */}
+    ![Game slot showing a green "Parsed" badge next to the uploaded replay filename](../images/uploading-replays-parsed.png)
+  </Step>
+</Steps>
+
+---
+
+## How replays are processed
+
+When you upload a `.replay` file:
+
+1. The file is sent to **ballchasing.com**, a third-party Rocket League replay analysis service.
+2. ballchasing.com parses the file and extracts: final score, player Epic usernames, individual stats (goals, assists, saves, shots, demos), and game settings.
+3. The parsed data is sent back to C3 Esports via a webhook (or polling if the webhook is delayed).
+4. Stats and scores are displayed on the match page and in player profiles.
+
+This process usually takes under a minute. See [Replay Parsing](/reference/replay-parsing) for a detailed technical breakdown.
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="I cannot find my replay file">
+    - Make sure you are looking in the correct folder (see above).
+    - Sort by Date Modified to find the most recent files.
+    - If you quit Rocket League immediately after the game before the replay saved, try launching Rocket League and checking the replay viewer — the file may still be saved even if you exited quickly.
+    - Rocket League saves replays automatically after every game. If the file genuinely is not there, it may have been deleted by a cleanup script or storage management tool.
+  </Accordion>
+  <Accordion title="The replay parsed but shows the wrong score">
+    The replay file might be from the wrong game. Delete it and re-upload the correct file. If the correct replay consistently shows a wrong score, contact staff — this is a rare ballchasing parsing error that requires a manual reparse.
+  </Accordion>
+  <Accordion title="The replay status is stuck on Processing">
+    ballchasing.com processing can occasionally take longer than normal. Wait 5 minutes and refresh the page. If it is still stuck after 15 minutes, contact staff or your manager so they can trigger a re-parse.
+  </Accordion>
+  <Accordion title="Upload failed with an error message">
+    Check that the file ends in `.replay` and is not corrupted. Try uploading from a different browser if you see a network error. If the problem persists, contact staff with the error message you received.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Replay requirements summary
+
+See [Replay Requirements](/rules/replay-requirements) for the full policy. Key points:
+
+- One `.replay` file per game in the series (not one for the whole match)
+- Must show the correct score and players from the game
+- Must be uploaded within 2 hours of match completion
+- Replays that contradict the submitted score will trigger a dispute review

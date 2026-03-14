@@ -1,6 +1,109 @@
 ---
 title: "Replay Reparsing"
-description: "How to trigger a fresh replay parse for a match game."
+description: "How to trigger a fresh parse for a replay that failed or returned incorrect data."
 ---
 
-<Note>This page is coming soon.</Note>
+Replay files are parsed automatically by ballchasing.com after upload. In most cases this works without any intervention. Occasionally, parsing fails or returns unexpected data — this guide explains how to identify and resolve those situations.
+
+---
+
+## Common reasons a replay might need reparsing
+
+<AccordionGroup>
+  <Accordion title="Parse status stuck in PROCESSING">
+    The webhook from ballchasing.com did not fire (network timeout, webhook misconfiguration, or a brief ballchasing outage). The file was uploaded successfully but the platform never received the parsed results.
+  </Accordion>
+  <Accordion title="Parse status shows FAILED">
+    The replay file was corrupted or truncated — usually because the player quit Rocket League before the replay finished saving, or because the file was modified before upload.
+  </Accordion>
+  <Accordion title="Parsed score does not match the submitted score">
+    This triggers an automatic flag on the match. It can happen if the wrong replay file was uploaded for that game slot (e.g., Game 1's replay was uploaded to the Game 2 slot).
+  </Accordion>
+  <Accordion title="Player stats are missing or incorrect">
+    Ballchasing occasionally fails to extract stats for one or more players — usually if the replay contains uncommon data (e.g., a player who disconnected and reconnected). A reparse sometimes resolves this.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Triggering a reparse from the match page
+
+This is the easiest method and is available to staff:
+
+<Steps>
+  <Step title="Go to the match page">
+    Navigate to the match via [c3esports.com/admin/matches](https://c3esports.com/admin/matches). Open the specific match.
+  </Step>
+  <Step title="Find the game with the problematic replay">
+    In the Games section, locate the game showing a failed, stuck, or incorrect parse status.
+  </Step>
+  <Step title="Click Reparse Replay">
+    Click the **Reparse** button next to the game. This sends the existing uploaded file back to ballchasing.com for a fresh parse.
+
+    {/* TODO: add screenshot */}
+    ![Match game row showing a "Parsed: Failed" badge and a Reparse button](../images/replay-reparsing-button.png)
+  </Step>
+  <Step title="Wait for the result">
+    Processing typically takes under a minute. Refresh the page or wait for the status to update. If it continues to fail, see the escalation steps below.
+  </Step>
+</Steps>
+
+---
+
+## Triggering a reparse via API
+
+For staff who prefer or need a programmatic approach:
+
+```bash
+curl -X POST https://c3esports.com/api/admin/matches/{matchId}/games/{gameId}/reparse \
+  -H "Authorization: Bearer YOUR_STAFF_API_KEY"
+```
+
+Replace `{matchId}` and `{gameId}` with the appropriate IDs from the match URL.
+
+<Note>
+  API calls are logged in the audit log the same as UI actions.
+</Note>
+
+---
+
+## If reparse continues to fail
+
+If the reparse fails more than once, the replay file itself is likely the problem. Steps to resolve:
+
+<Steps>
+  <Step title="Contact the team for a new replay file">
+    Ask the team manager or the player who played that game to locate and re-upload the correct `.replay` file. See [Uploading Replays](/players/uploading-replays) for where files are stored.
+  </Step>
+  <Step title="Replace the uploaded replay file">
+    On the match page (staff view), click **Replace Replay** for the affected game and upload the new file.
+  </Step>
+  <Step title="Trigger a reparse again">
+    After uploading the replacement, click **Reparse** to process the new file.
+  </Step>
+  <Step title="If file is truly lost">
+    If neither team can provide the correct replay file and the score is not in dispute, staff may accept the submitted score without a parsed replay. Document this decision in the match notes and note that replay verification was not possible.
+
+    <Warning>
+      Accepting a result without a verified replay should be rare. Only do this when you have confirmed through other means (screenshots, both teams confirming) that the submitted score is correct.
+    </Warning>
+  </Step>
+</Steps>
+
+---
+
+## Score mismatch flags
+
+When a parsed replay's final score does not match the submitted score for that game, the platform automatically flags the game with a **Score Mismatch** warning. This does not automatically create a dispute — but it is a signal that staff should review.
+
+To review a mismatch:
+
+1. Open the match page.
+2. Look for the orange "Score Mismatch" badge on the game in question.
+3. Click the badge to open a comparison: submitted score vs. parsed score.
+4. Check whether the correct replay was uploaded to the correct game slot. (A very common cause is games uploaded out of order.)
+5. If it is a wrong-slot issue, replace the replay with the correct file and reparse.
+6. If the replay confirms a genuinely different score, investigate further — this may be a dispute situation.
+
+{/* TODO: add screenshot */}
+![Game row with an orange "Score Mismatch" badge showing "Submitted: 3-2, Parsed: 4-2"](../images/replay-reparsing-mismatch.png)

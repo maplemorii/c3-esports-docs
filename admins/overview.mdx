@@ -1,6 +1,73 @@
 ---
-title: "Admins Overview"
-description: "Full platform access — roles, responsibilities, and tools."
+title: "Admin Panel Overview"
+description: "What the admin panel covers, who has access, and links to all admin guides."
 ---
 
-<Note>This page is coming soon.</Note>
+The C3 Esports admin panel at [c3esports.com/admin](https://c3esports.com/admin) provides full platform access for users with the **ADMIN** role. Admins have the highest level of access on the platform, including all staff capabilities plus user management, audit log access, and system-level controls.
+
+<Warning>
+  Admin access is powerful and can cause irreversible changes. Always confirm your actions before executing them, especially for operations that affect standings, match results, or user accounts. When in doubt, check the audit log first to understand the current state.
+</Warning>
+
+---
+
+## Who has access
+
+The admin panel is restricted to users with the `ADMIN` role. Staff members have access to their own panel at `/admin/staff/*` but cannot access admin-only sections. Role assignments are managed by existing admins — contact an admin via the C3 Esports Discord if you need a role adjustment.
+
+{/* TODO: add screenshot */}
+![Admin panel landing page showing navigation links for User Management, Announcements, Audit Log, Cron Jobs, and Brackets](../images/admins-overview-panel.png)
+
+---
+
+## Admin panel sections
+
+<CardGroup cols={2}>
+  <Card title="User Management" icon="users-gear" href="/admins/user-management">
+    Search all platform users, view profiles, change roles, ban accounts, and review per-user audit history.
+  </Card>
+  <Card title="Announcements" icon="bullhorn" href="/admins/announcements">
+    Create and publish league-wide announcements visible to all users on the platform.
+  </Card>
+  <Card title="Audit Log" icon="scroll" href="/admins/audit-log">
+    Review an immutable log of all significant platform actions with filtering by user, action type, and date.
+  </Card>
+  <Card title="Cron Job Reference" icon="clock" href="/admins/cron-reference">
+    Understand and manually trigger scheduled background jobs: replay polling, match status updates, and season transitions.
+  </Card>
+  <Card title="Bracket Management" icon="sitemap" href="/admins/bracket-management">
+    Playoff bracket tools. Note: this feature is not yet fully implemented.
+  </Card>
+</CardGroup>
+
+Admins also have access to all **Staff** sections:
+
+<CardGroup cols={2}>
+  <Card title="Season Management" icon="calendar-plus" href="/staff/season-management">
+    Create seasons, set dates, schedule match weeks, and advance season phases.
+  </Card>
+  <Card title="Registration Management" icon="clipboard-check" href="/staff/registration-management">
+    Review and approve or deny team registrations.
+  </Card>
+  <Card title="Match Management" icon="flag" href="/staff/match-management">
+    Override scores, mark forfeits, and reschedule matches.
+  </Card>
+  <Card title="Standings Management" icon="chart-bar" href="/staff/standings-management">
+    View all division standings and make emergency point adjustments.
+  </Card>
+  <Card title="Dispute Resolution" icon="scale-balanced" href="/staff/dispute-resolution">
+    Review and resolve open match disputes.
+  </Card>
+  <Card title="Replay Reparsing" icon="rotate" href="/staff/replay-reparsing">
+    Trigger a fresh parse for a replay that failed or returned incorrect data.
+  </Card>
+</CardGroup>
+
+---
+
+## Admin best practices
+
+- **Always log your reasoning.** When overriding scores, banning users, or adjusting standings, write a clear reason. The audit log captures the action but your note explains the *why* for future reference.
+- **Use the audit log before acting.** Before overriding anything, check what has already happened. This avoids duplicate actions and helps you understand the full context.
+- **Communicate major decisions in Discord.** If you are banning a player, reversing a match result, or making a significant standing change, announce it in the **#staff** channel so the team is informed.
+- **Do not perform admin actions in anger.** If a user is being difficult in a support ticket, take a breath before acting. Bans are logged and visible to all staff.

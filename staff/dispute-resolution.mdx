@@ -1,6 +1,129 @@
 ---
 title: "Dispute Resolution"
-description: "Reviewing and resolving match disputes."
+description: "Reviewing the dispute queue, investigating evidence, and issuing resolution decisions."
 ---
 
-<Note>This page is coming soon.</Note>
+Disputes are the most time-sensitive staff responsibility. A dispute freezes a match result, which means standings are on hold until resolution. Aim to resolve disputes within **72 hours** of filing.
+
+---
+
+## Accessing the dispute queue
+
+Go to [c3esports.com/admin/disputes](https://c3esports.com/admin/disputes). Open disputes are sorted by filing time (oldest first) so the most urgent ones are at the top.
+
+{/* TODO: add screenshot */}
+![Dispute queue showing a table with columns for Match, Teams, Filed By, Filed At, Status, and an Open button](../images/dispute-resolution-queue.png)
+
+### Dispute statuses
+
+| Status | Meaning |
+|---|---|
+| **Open** | Awaiting staff review |
+| **Under Review** | A staff member has claimed it and is working on it |
+| **Resolved** | Staff issued a final decision |
+| **Dismissed** | Dispute was frivolous or lacked evidence; closed without action |
+
+---
+
+## Claiming a dispute
+
+When you start reviewing a dispute, click **Claim** on the detail page. This marks it as `Under Review` and assigns it to you, so other staff know it is being handled.
+
+<Note>
+  Only claim a dispute if you are prepared to see it through to resolution. Abandoning a claimed dispute creates confusion. If you need to hand it off, use the **Transfer Claim** option and notify the other staff member in Discord.
+</Note>
+
+---
+
+## Reviewing a dispute
+
+Open the dispute detail page. You will see:
+
+<Steps>
+  <Step title="Read the dispute summary">
+    Review the reason selected by the filing manager and their written description of what happened.
+  </Step>
+  <Step title="Check the submitted scores vs. the claimed correct scores">
+    The match page shows the scores the submitting team entered. The dispute should explain what the filing team claims the actual score was.
+  </Step>
+  <Step title="Review the attached evidence">
+    - **Replay files** — the most reliable evidence. Open each replay's ballchasing.com link to see the parsed score and player list.
+    - **Screenshots** — useful corroborating evidence but easier to fabricate than replays.
+    - **Discord messages or timestamps** — occasionally relevant for no-show disputes.
+  </Step>
+  <Step title="Check both teams' replays">
+    Both teams may have uploaded replays. Cross-reference them. If they match, the answer is clear. If they conflict, investigate further — look at player Epic usernames in the replay to confirm both teams' players were present.
+  </Step>
+  <Step title="Contact the managers if needed">
+    If evidence is ambiguous or missing, message both managers via Discord and request the specific information you need. Document this in the dispute notes.
+
+    {/* TODO: add screenshot */}
+    ![Dispute detail page showing the evidence section with replay links and a staff notes text area](../images/dispute-resolution-detail.png)
+  </Step>
+</Steps>
+
+---
+
+## Issuing a resolution
+
+Once you have enough information to make a decision:
+
+<Steps>
+  <Step title="Click Resolve Dispute">
+    In the Staff Actions section of the dispute page, click **Resolve Dispute**.
+  </Step>
+  <Step title="Select the outcome">
+    | Outcome | What it does |
+    |---|---|
+    | **Uphold submitted result** | The original score stands. Dispute is closed. |
+    | **Override result** | Enter corrected scores. Match result is updated. |
+    | **Rule forfeit** | One team wins by forfeit. |
+    | **Declare no-contest** | Match is cancelled with no result recorded. |
+  </Step>
+  <Step title="Write a detailed decision note">
+    Explain your reasoning clearly. Both managers will see this note. Include:
+    - What evidence you reviewed
+    - What you found
+    - Why you made the decision you did
+
+    Example:
+    > "After reviewing both teams' replay files, the actual score of Game 2 was 4-2 (not 3-2 as submitted). Replay file REPLAY-UUID confirms this — see ballchasing link. Overriding the submitted score for Game 2. Series result unchanged: Team A wins 2-1."
+  </Step>
+  <Step title="Confirm">
+    Click **Confirm Resolution**. Both managers receive a notification. The match page updates with the decision. Standings are recalculated on the next scheduled run (or trigger manually).
+  </Step>
+</Steps>
+
+---
+
+## Dismissing frivolous disputes
+
+Some disputes are filed without valid grounds — for example, disputing a clean loss because the team is unhappy with the result, or filing about issues that clearly are not within C3 Esports' scope.
+
+To dismiss:
+
+1. Click **Dismiss Dispute**.
+2. Provide a clear reason explaining why it was dismissed and what valid dispute grounds are.
+3. Confirm.
+
+<Warning>
+  Repeated frivolous disputes from the same team or manager can result in a warning or restriction on their ability to file future disputes. Document these patterns in the dispute notes and report them to the admin team.
+</Warning>
+
+---
+
+## Resolution timeline
+
+| Milestone | Target |
+|---|---|
+| Acknowledge receipt | Within **24 hours** |
+| Request additional evidence (if needed) | Within **24 hours** |
+| Issue final resolution | Within **72 hours** |
+
+If a dispute will take longer than 72 hours (e.g., waiting for a manager to respond with missing evidence), post an update in the dispute notes and notify both managers via Discord so they know it has not been forgotten.
+
+---
+
+## Appeals
+
+Staff decisions are final. However, if a manager believes a decision was made based on incorrect or incomplete information, they may request a review by contacting an admin via Discord. Admins may reopen a dispute if there is compelling new evidence. Reversals purely based on disagreement with the ruling are not granted.

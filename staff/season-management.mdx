@@ -1,6 +1,130 @@
 ---
 title: "Season Management"
-description: "Creating seasons, configuring divisions, and generating weeks."
+description: "Creating seasons, configuring divisions, scheduling match weeks, and advancing season phases."
 ---
 
-<Note>This page is coming soon.</Note>
+Season management is the foundation of C3 Esports operations. Staff create and configure each season before it begins, set the registration dates, define divisions, schedule match weeks, and advance the season through its phases as it progresses.
+
+---
+
+## Season lifecycle overview
+
+A season moves through these phases in order:
+
+```
+UPCOMING → REGISTRATION → ACTIVE → PLAYOFFS → COMPLETED
+```
+
+See [Season Lifecycle](/reference/season-lifecycle) for a full description of each phase. The transition between phases can happen automatically (when date conditions are met) or manually (staff trigger).
+
+---
+
+## Creating a new season
+
+<Steps>
+  <Step title="Go to Season Management">
+    Navigate to [c3esports.com/admin/seasons](https://c3esports.com/admin/seasons) and click **Create Season**.
+
+    {/* TODO: add screenshot */}
+    ![Season management page showing existing seasons and a Create Season button](../images/season-management-list.png)
+  </Step>
+  <Step title="Set the season name and description">
+    Choose a name like "Spring 2026" or "Season 4". Add a short description if needed.
+  </Step>
+  <Step title="Set key dates">
+    | Date field | Description |
+    |---|---|
+    | **Registration opens** | When teams can start registering |
+    | **Registration closes** | Deadline for team registrations |
+    | **Season start** | When the first match week begins |
+    | **Season end** | Expected end of regular season |
+    | **Playoffs start** | When playoffs begin (can be set later) |
+
+    <Warning>
+      Set dates carefully — changing them after registration opens can confuse teams and managers who planned around the original schedule. Announce any date changes in Discord immediately.
+    </Warning>
+  </Step>
+  <Step title="Create divisions">
+    After creating the season, add divisions. Click **Add Division** and create:
+    - **Premier** — top tier
+    - **Challengers** — mid tier
+    - **Contenders** — entry-level
+
+    Each division can have its own match format configuration (e.g., BO3 regular season, BO5 playoffs).
+  </Step>
+  <Step title="Save and publish">
+    Click **Save Season**. The season starts in `UPCOMING` status and is visible to users on the Seasons page as a coming-soon entry.
+  </Step>
+</Steps>
+
+---
+
+## Opening and closing registration
+
+Registration can be opened and closed manually in addition to the automatic date-based transition.
+
+**To open registration early or manually:**
+1. Go to the season detail page in the admin panel.
+2. Click **Open Registration**.
+3. The season phase changes to `REGISTRATION` immediately.
+
+**To close registration early:**
+1. Click **Close Registration** on the season detail page.
+2. Confirm. No new registrations are accepted after this point.
+3. The season transitions to `ACTIVE` (or stays pending until the configured start date, depending on your setup).
+
+<Tip>
+  Close registration a few hours before you begin batch-approving teams. This prevents last-minute registrations from being missed.
+</Tip>
+
+---
+
+## Scheduling match weeks
+
+After registration closes and teams are approved, create the match schedule:
+
+<Steps>
+  <Step title="Go to Match Weeks">
+    On the season detail page, open the **Match Weeks** tab and click **Create Week**.
+  </Step>
+  <Step title="Set week number and date range">
+    Assign a week number (Week 1, Week 2, etc.) and the date window (e.g., Monday–Sunday of that week).
+  </Step>
+  <Step title="Generate matches">
+    Click **Generate Matches** for the week. The system pairs teams in round-robin order within each division and creates match records with default time slots.
+
+    <Note>
+      Generated matches use placeholder times. You must set actual match times for each match before the week begins. Teams and managers are notified when match times are finalized.
+    </Note>
+  </Step>
+  <Step title="Set match times">
+    For each generated match, set the scheduled start time in Eastern Time. Standard match times are 8:00 PM, 9:00 PM, or 10:00 PM ET — but any time can be scheduled.
+  </Step>
+  <Step title="Publish the week">
+    When all match times are set, click **Publish Week**. Teams receive notifications and the matches appear on the Matches page.
+  </Step>
+</Steps>
+
+---
+
+## Advancing to playoffs
+
+When the regular season ends:
+
+1. Verify all regular season matches are `COMPLETED` or `FORFEITED`. No pending results should remain.
+2. Trigger the standings recalculator (or wait for the next automatic run) to confirm final standings.
+3. Click **Advance to Playoffs** on the season detail page.
+4. The season phase changes to `PLAYOFFS`.
+5. Create playoff match records manually (or wait for the bracket management feature when available).
+
+---
+
+## Completing a season
+
+After all playoff matches are resolved:
+
+1. Confirm all playoff results are finalized.
+2. Click **Complete Season** on the season detail page.
+3. The season phase changes to `COMPLETED`.
+4. Final standings are frozen and the season record is archived.
+5. Announce results in Discord and on the platform via an [Announcement](/admins/announcements).

@@ -1,6 +1,121 @@
 ---
 title: "User Management"
-description: "Searching users, changing roles, and verifying eligibility."
+description: "Search users, view profiles, change roles, ban accounts, and review per-user audit history."
 ---
 
-<Note>This page is coming soon.</Note>
+The User Management panel at [c3esports.com/admin/users](https://c3esports.com/admin/users) gives admins full visibility into every registered user on the platform. From here you can look up accounts, adjust roles, suspend or ban users, and review their activity history.
+
+---
+
+## Searching for users
+
+The search bar at the top of the page supports:
+
+- **Username** — exact or partial match
+- **Email address** — exact match or domain search (e.g., `@utexas.edu`)
+- **Discord username** — exact match
+- **User ID** — if you have the internal ID
+
+{/* TODO: add screenshot */}
+![User management page with a search bar showing a partial email address search and a results table below](../images/user-management-search.png)
+
+<Tip>
+  Use email domain search to quickly find all users from a specific school (e.g., `@uta.edu`). This is useful when verifying a team's eligibility or responding to a school-wide incident.
+</Tip>
+
+---
+
+## User profile view
+
+Clicking on a user from the search results opens their full admin profile view, which includes:
+
+| Section | What you see |
+|---|---|
+| **Account info** | Username, email, join date, last login |
+| **Verification status** | .edu email verified, Discord linked |
+| **Current role** | USER, STAFF, or ADMIN |
+| **Team membership** | Current team (if any) and role (manager or player) |
+| **Season history** | Which seasons they participated in |
+| **Audit history** | All logged actions associated with this user |
+| **Ban status** | Active ban, reason, and expiration if applicable |
+
+{/* TODO: add screenshot */}
+![Admin user profile page showing all sections listed above, with the user's Discord avatar and username at the top](../images/user-management-profile.png)
+
+---
+
+## Changing a user's role
+
+<Steps>
+  <Step title="Open the user's profile">
+    Search for and click on the user.
+  </Step>
+  <Step title="Find the Role section">
+    The role selector shows the current role: `USER`, `STAFF`, or `ADMIN`.
+  </Step>
+  <Step title="Select the new role and save">
+    Choose the new role from the dropdown and click **Save Role**. The change takes effect immediately on the user's next page load.
+
+    <Warning>
+      Granting ADMIN role gives full platform access. Only do this for trusted, vetted team members. The action is logged in the audit log with your username and a timestamp.
+    </Warning>
+  </Step>
+</Steps>
+
+### Role permissions summary
+
+| Role | Can do |
+|---|---|
+| `USER` | Normal player/manager actions |
+| `STAFF` | Staff panel: seasons, registrations, matches, disputes, standings |
+| `ADMIN` | Everything STAFF can do, plus: user management, audit log, announcements, cron jobs |
+
+---
+
+## Banning a user
+
+<Steps>
+  <Step title="Open the user's profile">
+    Navigate to the user via search.
+  </Step>
+  <Step title="Click Ban User">
+    In the Danger Zone section at the bottom of the profile, click **Ban User**.
+  </Step>
+  <Step title="Fill in the ban details">
+    - **Reason** (required): A clear explanation of why this user is being banned. This is stored in the audit log.
+    - **Duration**: Temporary (specify days) or permanent.
+    - **Notify user**: Check this to send the user an automated email with the ban reason.
+
+    {/* TODO: add screenshot */}
+    ![Ban user dialog showing reason text area, duration selector, and a notify user checkbox](../images/user-management-ban-dialog.png)
+  </Step>
+  <Step title="Confirm the ban">
+    Click **Confirm Ban**. The user is immediately unable to log in. Their team membership is not automatically removed — you may need to remove them from their roster separately.
+  </Step>
+</Steps>
+
+<Note>
+  Banning a user does not automatically remove them from active team rosters. Go to their team page and remove them from the roster manually after banning, especially if they are in the middle of a season.
+</Note>
+
+### Lifting a ban
+
+To unban a user:
+
+1. Search for them (banned users still appear in search).
+2. Open their profile — you will see a "Banned" badge.
+3. Click **Lift Ban** and provide a reason. The unban is logged.
+
+---
+
+## Viewing the per-user audit log
+
+Every user's profile includes an **Audit History** tab. This shows all logged actions associated with that user — both actions they took and actions taken on their account by staff/admins.
+
+Entries include: action type, timestamp, which admin performed the action (if staff-initiated), and any attached notes.
+
+<Tip>
+  Before banning or making a significant role change, review the user's audit history to understand the full context of any incidents.
+</Tip>
+
+See [Audit Log](/admins/audit-log) for how to search and filter the global log.

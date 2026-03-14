@@ -1,6 +1,128 @@
 ---
 title: "Match Management"
-description: "Scheduling matches, overriding check-ins, and forfeiting matches."
+description: "View all matches, override scores, mark forfeits, and reschedule matches."
 ---
 
-<Note>This page is coming soon.</Note>
+The match management panel gives staff visibility into every match in the system — past, present, and future. You can take corrective action on any match: override incorrect scores, mark forfeits, or reschedule.
+
+---
+
+## Accessing match management
+
+Go to [c3esports.com/admin/matches](https://c3esports.com/admin/matches). The default view shows all matches for the current season, sorted by scheduled time.
+
+### Filtering matches
+
+Use the filters to narrow the list:
+
+| Filter | Options |
+|---|---|
+| Season | Select any season |
+| Division | Premier, Challengers, Contenders |
+| Status | Scheduled, In Progress, Pending Result, Completed, Forfeited, Cancelled |
+| Week | Specific match week |
+| Team | Filter to one specific team's matches |
+| Date range | Start and end date |
+
+{/* TODO: add screenshot */}
+![Match management page showing filter controls at top and a table of matches below with status badges](../images/match-management-list.png)
+
+---
+
+## Match detail view
+
+Clicking on any match opens the detail view, which shows:
+
+- Both team names, division, week, and scheduled time
+- Check-in status for both teams
+- Submitted result (if any) — game-by-game scores
+- Replay file status per game
+- Result confirmation status
+- Any open or resolved disputes
+- Staff action history for this match
+
+{/* TODO: add screenshot */}
+![Match detail view showing all sections: check-in status, submitted scores, replay statuses, and staff action buttons](../images/match-management-detail.png)
+
+---
+
+## Overriding a match result
+
+Use result overrides to correct a score that was submitted incorrectly and has already been confirmed, or when a dispute resolution requires a score change.
+
+<Steps>
+  <Step title="Open the match detail page">
+    Navigate to the match via the match list or by searching for a team.
+  </Step>
+  <Step title="Click Override Result">
+    In the Staff Actions section, click **Override Result**.
+
+    <Warning>
+      Result overrides are permanent and logged with your username. Always provide a detailed reason — this appears in the audit log and may be referenced if the decision is later questioned.
+    </Warning>
+  </Step>
+  <Step title="Enter the correct scores">
+    Fill in the corrected game-by-game scores. The series winner is calculated automatically based on the scores you enter.
+  </Step>
+  <Step title="Enter a reason">
+    Write a clear reason for the override. Include: the issue that was found, what evidence you reviewed, and the corrected result. Example:
+
+    > "Result overridden following dispute #142. Submitted score of 3-2 was incorrect — replay parsing confirmed actual score was 4-1. Updating to reflect the correct result per replay evidence."
+  </Step>
+  <Step title="Confirm">
+    Click **Confirm Override**. Standings update on the next standings recalculation (or trigger it manually via [Cron Jobs](/admins/cron-reference)).
+  </Step>
+</Steps>
+
+---
+
+## Marking a forfeit
+
+If a team no-showed and the forfeit was not recorded automatically, or if a team needs to forfeit for another reason:
+
+1. Open the match detail page.
+2. Click **Mark Forfeit** in the Staff Actions section.
+3. Select which team is forfeiting.
+4. Enter a reason (e.g., "Team A failed to check in. Match time: 8:00 PM ET. No contact from manager.").
+5. Confirm.
+
+The match is recorded as a 3-0 win for the non-forfeiting team. No replay files are required.
+
+<Note>
+  If both teams failed to check in, you can declare a **double forfeit** — both teams receive a loss (0 points). This is rare but may apply in cases of mutual abandonment.
+</Note>
+
+---
+
+## Rescheduling a match
+
+To reschedule a match to a different date or time:
+
+<Steps>
+  <Step title="Confirm both teams agree">
+    Rescheduling should only happen when both managers have agreed to the new time. Check your Discord staff channel for the reschedule request from both managers.
+  </Step>
+  <Step title="Open the match and click Reschedule">
+    In the Staff Actions section of the match detail page, click **Reschedule Match**.
+  </Step>
+  <Step title="Set the new date and time">
+    Enter the new scheduled start time (Eastern Time). The match status resets to `SCHEDULED` with the new time.
+  </Step>
+  <Step title="Enter a reason and notify">
+    Document the reason (e.g., "Both managers agreed to reschedule from Tue 8pm to Thu 9pm. See Discord thread #link."). Both teams receive a notification automatically.
+  </Step>
+</Steps>
+
+<Tip>
+  After rescheduling, confirm in the Discord reschedule request thread that the change has been made. Managers and players watch that channel for confirmation.
+</Tip>
+
+---
+
+## Cancelling a match
+
+Use **Cancel Match** when a match will not be played and no result should be recorded (e.g., both teams are disqualified, or a scheduling error created a duplicate match).
+
+<Warning>
+  Cancelling a match is different from a forfeit — it does not award a win to either team and has no impact on standings. Only cancel when neither team should receive a result.
+</Warning>

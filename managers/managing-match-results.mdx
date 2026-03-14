@@ -1,6 +1,123 @@
 ---
 title: "Managing Match Results"
-description: "Check-in, score submission, confirmation, and forfeits."
+description: "How to submit game-by-game scores, upload replays, confirm opponent results, and handle disputes."
 ---
 
-<Note>This page is coming soon.</Note>
+After your team plays a match, the manager is responsible for reporting the result. This involves submitting the score for each game in the series, uploading a replay file for each game, and either confirming the opponent's submission or filing a dispute if something is wrong.
+
+<Note>
+  Only team managers can submit match results. Players cannot submit results on behalf of their manager.
+</Note>
+
+---
+
+## The result submission flow
+
+Here is the full lifecycle of a match result:
+
+1. Both teams play the series.
+2. **One team** submits the result game-by-game on the match page.
+3. The **opposing team** confirms the result — or disputes it within 24 hours.
+4. If not confirmed or disputed within 24 hours, the result **auto-confirms**.
+5. Standings are updated after confirmation.
+
+<Tip>
+  It does not matter which team submits first — either team's manager can submit. Submit promptly so your opponent has time to confirm before the auto-confirm deadline.
+</Tip>
+
+---
+
+## Submitting scores
+
+<Steps>
+  <Step title="Go to the match page">
+    Find your match at [c3esports.com/matches](https://c3esports.com/matches) or from your dashboard. Open the specific match.
+
+    {/* TODO: add screenshot */}
+    ![Match page showing two team names, scheduled time, and a Submit Result button](../images/match-results-match-page.png)
+  </Step>
+  <Step title="Click Submit Result">
+    This button is only available after the match's scheduled start time has passed and your team checked in.
+  </Step>
+  <Step title="Enter scores game by game">
+    For each game in the series, enter the score for your team and the opposing team. For a BO3, you will fill in 2–3 games depending on how many were played. For a BO5, up to 5 games.
+
+    <Warning>
+      Enter scores exactly as they appeared in Rocket League. Do not round, estimate, or guess. Mismatched scores between your submission and the opponent's will trigger a dispute automatically.
+    </Warning>
+
+    {/* TODO: add screenshot */}
+    ![Score entry form showing Game 1, Game 2, and Game 3 score fields for both teams](../images/match-results-score-entry.png)
+  </Step>
+  <Step title="Upload replay files">
+    For each game you entered a score for, upload the corresponding `.replay` file. See [Uploading Replays](/players/uploading-replays) for how to find your replay files on your PC.
+
+    {/* TODO: add screenshot */}
+    ![Score entry form with a file upload button next to each game's score fields](../images/match-results-replay-upload.png)
+  </Step>
+  <Step title="Submit">
+    Click **Submit Result**. The opposing team is notified and has 24 hours to confirm or dispute.
+  </Step>
+</Steps>
+
+---
+
+## Confirming the opponent's submission
+
+If the opposing team submits first, you will see a notification and a **Confirm Result** button on the match page.
+
+<Steps>
+  <Step title="Review the submitted scores">
+    Check that every game score matches your own records.
+  </Step>
+  <Step title="Confirm or dispute">
+    - If the scores are correct: click **Confirm Result**. Standings update immediately.
+    - If something is wrong: click **Dispute** and follow the [dispute process](/managers/filing-a-dispute).
+  </Step>
+</Steps>
+
+<Warning>
+  Do not click Confirm if any score is incorrect, even by one goal. Once confirmed, the result is locked and can only be changed by staff through a formal dispute.
+</Warning>
+
+---
+
+## Auto-confirmation
+
+If the opposing team does not confirm **or** file a dispute within **24 hours** of your submission, the result auto-confirms. You do not need to chase your opponent — just submit promptly after the match and the system handles the rest.
+
+<Note>
+  The 24-hour timer starts from the moment you submit, not from match time. Submit your result as soon as possible after the match ends — results must be submitted within **2 hours** of match completion in any case.
+</Note>
+
+---
+
+## Result and replay deadlines
+
+| Action | Deadline |
+|---|---|
+| Submit match result | Within **2 hours** of match completion |
+| Upload replay files | Within **2 hours** of match completion |
+| Opponent confirmation | Within **24 hours** of result submission |
+| File a dispute | Within **24 hours** of result submission |
+
+See [Result Deadlines](/rules/result-deadlines) for full policy details and consequences for missing these windows.
+
+---
+
+## If you need to edit a submitted result
+
+You cannot edit a result after submission. If you submitted incorrect scores:
+
+1. Contact the opposing manager immediately and ask them to file a dispute rather than confirm.
+2. Alternatively, file a dispute yourself — but note that disputes you file against your own submission require staff review.
+
+The cleanest solution is to double-check your scores **before** clicking Submit.
+
+---
+
+## Forfeits
+
+If your team wins by forfeit (the opposing team did not check in), the match page will show a **Record Forfeit** button. Click it to record the 3-0 forfeit win. No replay files are needed for a forfeit.
+
+If your team is forfeiting, contact staff as soon as possible — ideally before match time. See [Check-In Policy](/rules/check-in-policy).

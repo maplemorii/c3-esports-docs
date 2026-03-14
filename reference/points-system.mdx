@@ -1,6 +1,79 @@
 ---
 title: "Points System"
-description: "How wins, losses, and forfeits translate to standings points."
+description: "How wins, losses, draws, and forfeits are converted to standings points."
 ---
 
-<Note>This page is coming soon.</Note>
+C3 Esports uses a simple 3-point system for standing points, similar to association football (soccer) leagues worldwide. Points are awarded per **series** result — the number of individual games won within the series does not directly affect your points total.
+
+---
+
+## Points per result
+
+| Series result | Points awarded |
+|---|---|
+| Win | **3 points** |
+| Draw | **1 point** |
+| Loss | **0 points** |
+| Forfeit win | **3 points** |
+| Forfeit loss | **0 points** |
+
+<Note>
+  A draw can only occur if the rules allow it — in C3 Esports, all series have a decisive format (BO3 or BO5) that must produce a winner. Draws in standings are therefore extremely rare and would only appear in exceptional administrative circumstances.
+</Note>
+
+---
+
+## Series wins vs. game wins
+
+Points are based on whether you won the **series** — not on how many individual games you won within it.
+
+**Example — BO3:**
+- You win 2-0: you earn 3 points
+- You win 2-1: you earn 3 points (same as 2-0)
+- You lose 0-2: you earn 0 points
+- You lose 1-2: you earn 0 points (same as 0-2)
+
+However, individual game scores **do** affect your **goal difference (GD)**, which is used as a tiebreaker. Winning 5-0 and 4-0 is better than winning 1-0 and 2-1 for your GD, even though both produce the same 3 points.
+
+<Tip>
+  Even when a series win is secured (e.g., you are up 2-0 in a BO3 and technically do not need to play Game 3), playing each game as competitively as possible builds a better goal difference and may matter for your playoff seeding.
+</Tip>
+
+---
+
+## When points are awarded
+
+Points are added to standings only after a match result is **confirmed** — either by the opposing manager clicking Confirm, or via auto-confirmation after 24 hours. A submitted but unconfirmed result has no effect on the standings table until it is confirmed.
+
+---
+
+## How standings are sorted
+
+Teams in the same division are ranked by:
+
+1. **Total points** (descending)
+2. If tied: **tiebreaker procedure** — see [Tiebreakers](/reference/tiebreakers)
+
+{/* TODO: add screenshot */}
+![Division standings table showing teams sorted by points with columns for W, D, L, GF, GA, GD, and Pts](../images/points-system-standings.png)
+
+---
+
+## Forfeit points
+
+A forfeit win counts as 3 points — exactly the same as a played win. A forfeit loss counts as 0 points. The goal difference from a forfeit is recorded as **0-3** (forfeit loss) or **3-0** (forfeit win) for GD purposes.
+
+<Warning>
+  Do not let a series feel "unimportant" because you already clinched a playoff spot. Forfeiting a match — even with playoffs secured — is a Code of Conduct violation (intentional forfeit) and harms the opposing team's standings. Play all your scheduled matches.
+</Warning>
+
+---
+
+## Points system summary table
+
+| Match type | Winner points | Loser points | GD impact |
+|---|---|---|---|
+| BO3 played series | 3 | 0 | Actual game scores |
+| BO5 played series | 3 | 0 | Actual game scores |
+| Forfeit | 3 | 0 | 3-0 artificial |
+| Double forfeit | 0 | 0 | No GD impact |

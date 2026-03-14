@@ -1,6 +1,102 @@
 ---
 title: "Standings & Stats"
-description: "How to view division standings and your team's record."
+description: "How to read division standings, understand the points system, and view your personal stats."
 ---
 
-<Note>This page is coming soon.</Note>
+C3 Esports tracks two kinds of data: **standings** (how your team ranks in your division) and **stats** (individual player performance parsed from replay files). Both update automatically after each match result is confirmed.
+
+---
+
+## Viewing standings
+
+Go to [c3esports.com/seasons](https://c3esports.com/seasons), select the current season, and choose your division tab to see the standings table.
+
+{/* TODO: add screenshot */}
+![Season page showing a standings table with columns for Rank, Team, W, D, L, GF, GA, GD, and Points](../images/standings-table.png)
+
+### Standings columns explained
+
+| Column | Meaning |
+|---|---|
+| **Rank** | Your current position in the division |
+| **W** | Wins (series wins, not game wins) |
+| **D** | Draws (if applicable) |
+| **L** | Losses |
+| **GF** | Goals For — total goals your team has scored across all games |
+| **GA** | Goals Against — total goals scored against your team |
+| **GD** | Goal Difference — GF minus GA |
+| **Pts** | League points (see below) |
+
+---
+
+## The points system
+
+| Match result | Points earned |
+|---|---|
+| Win | **3 points** |
+| Draw | **1 point** |
+| Loss | **0 points** |
+
+Points are awarded per **series** (not per individual game). If you win a BO3 series 2-1, you get 3 points regardless of the game scores.
+
+<Tip>
+  Goal difference (GD) matters for tiebreakers even if it does not count toward your points total. Try to win games as convincingly as possible — a clean sweep is always better than a narrow win for your GD.
+</Tip>
+
+---
+
+## Tiebreakers
+
+When two or more teams have the same number of points, standings are resolved in this order:
+
+1. **Head-to-head record** — who won when these specific teams played each other
+2. **Head-to-head goal difference** — goal diff in games between the tied teams only
+3. **Overall goal difference** — GD across all matches in the season
+4. **Coin flip** — if all above are still tied (rare)
+
+See [Tiebreakers](/reference/tiebreakers) for a detailed breakdown with examples.
+
+---
+
+## Viewing your personal stats
+
+Your individual player stats are parsed automatically from the `.replay` files uploaded to each match. To view them:
+
+1. Go to your profile page (click your avatar → **Profile**).
+2. Your match history and aggregated stats appear in the **Stats** tab.
+3. You can also view per-match stats by opening any match page — each game shows a scoreboard with individual stats.
+
+{/* TODO: add screenshot */}
+![Player profile stats tab showing totals for Goals, Assists, Saves, Shots, and Demos across the season](../images/standings-player-stats.png)
+
+### Stats that are tracked
+
+| Stat | Description |
+|---|---|
+| **Goals** | Goals scored |
+| **Assists** | Shot assists (touch before a teammate's goal) |
+| **Saves** | Shots blocked before they crossed the goal line |
+| **Shots** | Shot attempts (goals + non-goal shots on target) |
+| **Demos** | Demolitions — opponents hit at boost speed |
+| **Score** | In-game Rocket League match score (not league points) |
+| **MVP** | Whether you received the in-game MVP award |
+
+<Note>
+  Stats are only available for games where a valid `.replay` file was uploaded and successfully parsed. Matches without replays show "No data available" for individual stats.
+</Note>
+
+---
+
+## When do standings update?
+
+Standings update immediately after a match result is **confirmed** — either manually by the opposing manager or automatically after the 24-hour confirmation window. Results submitted but not yet confirmed appear as "Pending" and are not reflected in standings.
+
+---
+
+## Playoffs and seeding
+
+When the regular season ends, your division standings determine your **seed** in the playoff bracket. The top seed plays the lowest seed in the first round. See [Season Lifecycle](/reference/season-lifecycle) for how the transition from regular season to playoffs works.
+
+<Tip>
+  Every game matters for seeding. A team in 2nd place with a slightly better goal difference than 3rd place could get a much more favorable bracket draw. Play your best even in matches where the series result is already decided.
+</Tip>

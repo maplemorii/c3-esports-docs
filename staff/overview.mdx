@@ -1,6 +1,79 @@
 ---
 title: "Staff Overview"
-description: "Responsibilities and access for league operations staff."
+description: "What the staff panel covers, who has access, and links to all staff operation guides."
 ---
 
-<Note>This page is coming soon.</Note>
+The C3 Esports staff panel is accessible to users with the **STAFF** role (or the **ADMIN** role, which includes all staff access). Staff are the league's operations team — they manage seasons, review registrations, resolve disputes, and keep match schedules running smoothly.
+
+{/* TODO: add screenshot */}
+![Staff panel landing page at /admin showing a dashboard with open disputes, pending registrations, and this week's match count](../images/staff-overview-panel.png)
+
+---
+
+## Who has access
+
+| Role | Staff panel access |
+|---|---|
+| `USER` | No |
+| `STAFF` | Yes — all sections listed below |
+| `ADMIN` | Yes — plus user management, audit log, announcements, and cron jobs |
+
+Role assignments are managed by admins. If you need staff access, contact an admin via the C3 Esports Discord.
+
+---
+
+## Staff panel sections
+
+<CardGroup cols={2}>
+  <Card title="Season Management" icon="calendar-plus" href="/staff/season-management">
+    Create new seasons, configure registration dates, schedule match weeks, open/close registration, and advance season phases.
+  </Card>
+  <Card title="Registration Management" icon="clipboard-check" href="/staff/registration-management">
+    Review pending team registrations, check roster eligibility warnings, approve or deny with a reason, and bulk-approve clean applications.
+  </Card>
+  <Card title="Match Management" icon="flag-checkered" href="/staff/match-management">
+    View all scheduled and completed matches, manually override scores with a logged reason, mark forfeits, and reschedule matches.
+  </Card>
+  <Card title="Standings Management" icon="chart-bar" href="/staff/standings-management">
+    View per-division standings, trigger a recalculation, and make emergency point adjustments when needed.
+  </Card>
+  <Card title="Dispute Resolution" icon="scale-balanced" href="/staff/dispute-resolution">
+    Work through the open disputes queue, review submitted scores and replay evidence, and issue a resolution decision.
+  </Card>
+  <Card title="Replay Reparsing" icon="rotate" href="/staff/replay-reparsing">
+    Trigger a fresh replay parse for a match game where parsing failed or returned incorrect data.
+  </Card>
+</CardGroup>
+
+---
+
+## Staff responsibilities by season phase
+
+| Season phase | Key staff tasks |
+|---|---|
+| **Off-season** | Set up the next season, configure dates and divisions |
+| **Registration** | Review and approve team registrations daily |
+| **Active (regular season)** | Monitor matches weekly, resolve disputes, handle no-shows |
+| **Playoffs** | Schedule bracket matches, resolve disputes quickly, monitor for sportsmanship issues |
+| **Completed** | Finalize standings, archive the season, announce results |
+
+---
+
+## Staff communication
+
+Staff coordinate in the **#staff** channel in the C3 Esports Discord. Major decisions — dispute rulings, registration denials, rule interpretations — should be discussed there before taking action, especially for edge cases.
+
+<Tip>
+  When in doubt, ask before acting. A second opinion from a fellow staff member is always worth the few minutes it takes, especially for anything that affects a team's standing or ability to compete.
+</Tip>
+
+---
+
+## Getting started as a new staff member
+
+If you have just been granted staff access:
+
+1. Read the [Season Management](/staff/season-management) guide to understand the season structure.
+2. Read the [Dispute Resolution](/staff/dispute-resolution) guide — disputes are the most time-sensitive responsibility.
+3. Familiarize yourself with the [Match Rules](/rules/match-rules), [Eligibility Rules](/rules/eligibility), and [Dispute Policy](/rules/dispute-policy) so you can make informed decisions.
+4. Introduce yourself in **#staff** on Discord and ask an existing staff member to walk you through any active tasks.

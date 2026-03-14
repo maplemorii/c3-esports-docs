@@ -1,6 +1,80 @@
 ---
 title: "Platform Announcements"
-description: "Creating announcements for players, teams, or staff."
+description: "How to create and publish league-wide announcements visible to all C3 Esports users."
 ---
 
-<Note>This page is coming soon.</Note>
+Announcements are platform-wide messages displayed to all users when they log in or visit the dashboard. They are ideal for communicating season dates, rule changes, maintenance windows, and other important information.
+
+<Note>
+  Announcements are visible to all users regardless of their team, division, or role. Use them for information that is genuinely relevant to the whole platform — not for messages that only affect one team or one match.
+</Note>
+
+---
+
+## Creating an announcement
+
+<Steps>
+  <Step title="Go to the Announcements page">
+    Navigate to [c3esports.com/admin/announcements](https://c3esports.com/admin/announcements).
+
+    {/* TODO: add screenshot */}
+    ![Admin announcements page showing a list of past announcements and a Create Announcement button](../images/announcements-page.png)
+  </Step>
+  <Step title="Click Create Announcement">
+    Click the **Create Announcement** button in the top-right corner.
+  </Step>
+  <Step title="Fill in the announcement details">
+    | Field | Notes |
+    |---|---|
+    | **Title** | Short, descriptive headline (required) |
+    | **Body** | Full announcement text. Markdown is supported for formatting. |
+    | **Type** | Info, Warning, or Critical — controls the visual style (blue, yellow, red banner) |
+    | **Publish date** | When the announcement becomes visible. Leave blank to publish immediately. |
+    | **Expiry date** | When the announcement automatically stops showing. Optional. |
+
+    {/* TODO: add screenshot */}
+    ![Announcement creation form showing title, body, type selector, and date picker fields](../images/announcements-create-form.png)
+  </Step>
+  <Step title="Preview and publish">
+    Click **Preview** to see how the announcement will look to users, then click **Publish**. The announcement is live immediately (or at the scheduled publish date).
+  </Step>
+</Steps>
+
+---
+
+## Announcement types
+
+Choose the type that matches the urgency of your message:
+
+| Type | Color | Use for |
+|---|---|---|
+| **Info** | Blue | General news, schedule updates, new features |
+| **Warning** | Yellow | Upcoming deadlines, registration closing soon, policy reminders |
+| **Critical** | Red | Server maintenance, urgent rule clarifications, emergency changes |
+
+<Tip>
+  Reserve Critical announcements for genuine emergencies. Over-using the red banner trains users to ignore it.
+</Tip>
+
+---
+
+## Managing existing announcements
+
+From the announcements list, you can:
+
+- **Edit** any announcement (click the pencil icon). Changes take effect immediately.
+- **Unpublish** an announcement to hide it without deleting it.
+- **Delete** an announcement permanently. Deleted announcements do not appear in the audit log body, but the deletion action itself is logged.
+
+{/* TODO: add screenshot */}
+![Announcements list showing rows with edit, unpublish, and delete action buttons](../images/announcements-manage-list.png)
+
+---
+
+## Announcement best practices
+
+- **Be clear and concise.** Users skim announcements. Put the most important information in the first sentence.
+- **Include a deadline if one exists.** "Registration closes Friday at 11:59 PM ET" is better than "registration is closing soon."
+- **Set an expiry date.** Outdated announcements create confusion. Set an expiry for anything time-sensitive.
+- **Use the Warning type for deadlines.** Yellow draws attention without the alarm of red.
+- **Cross-post to Discord.** Announcements are on the platform, but most users live in Discord. Always post important information in the relevant Discord channel as well.

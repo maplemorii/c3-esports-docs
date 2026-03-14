@@ -1,6 +1,132 @@
 ---
 title: "Season Lifecycle"
-description: "The status states a season moves through from creation to completion."
+description: "The status phases a season moves through from creation to completion, and what happens at each transition."
 ---
 
-<Note>This page is coming soon.</Note>
+Every C3 Esports season follows a defined lifecycle. Understanding the phases helps teams know when to register, when matches will be played, and when to expect playoffs.
+
+---
+
+## Phase overview
+
+```
+UPCOMING
+    │
+    │ (registration_open_date reached)
+    ▼
+REGISTRATION
+    │
+    │ (registration_close_date reached OR staff manually closes)
+    ▼
+ACTIVE (Regular Season)
+    │
+    │ (all match weeks completed OR staff manually advances)
+    ▼
+PLAYOFFS
+    │
+    │ (all playoff matches resolved OR staff manually completes)
+    ▼
+COMPLETED
+```
+
+---
+
+## Phase descriptions
+
+<AccordionGroup>
+  <Accordion title="UPCOMING">
+    The season has been created by staff but registration has not opened yet. The season appears on the Seasons page with upcoming dates.
+
+    **What teams should do:** Watch for the registration open announcement in Discord. Make sure your team is created and your roster is being prepared.
+
+    **What staff do:** Finalize season dates, create divisions, set up the schedule structure.
+
+    **Duration:** Typically 1–4 weeks before registration opens.
+  </Accordion>
+  <Accordion title="REGISTRATION">
+    The registration window is open. Team managers can submit their teams for the season.
+
+    **What teams should do:** Register during this window. Ensure all players are eligible. See [Registering for a Season](/managers/registering-for-season).
+
+    **What staff do:** Review and approve or deny incoming registrations daily. See [Registration Management](/staff/registration-management).
+
+    **Duration:** Typically 1–2 weeks.
+
+    **Transitions to ACTIVE when:** The `registration_close_date` is reached, or staff manually close registration.
+  </Accordion>
+  <Accordion title="ACTIVE (Regular Season)">
+    The season is live. Matches are scheduled week by week. Teams compete for standings points.
+
+    **What teams should do:** Show up for every match, check in on time, submit results promptly.
+
+    **What staff do:** Monitor match completion, resolve disputes, handle forfeits and no-shows.
+
+    **Duration:** Typically 4–8 weeks depending on the number of teams and match weeks.
+
+    **Transitions to PLAYOFFS when:** All scheduled regular season match weeks are complete (or staff manually advance after the final week).
+  </Accordion>
+  <Accordion title="PLAYOFFS">
+    The regular season is over. Final standings are locked. Teams compete in an elimination bracket based on their seeding.
+
+    **What teams should do:** Win your playoff matches. Playoff matches use BO5 format. Results and replays are still required.
+
+    **What staff do:** Schedule playoff matches (manually, until the bracket system is built), resolve disputes quickly, monitor for conduct issues.
+
+    **Duration:** Typically 1–3 weeks depending on bracket size.
+
+    **Transitions to COMPLETED when:** All playoff matches have been resolved.
+  </Accordion>
+  <Accordion title="COMPLETED">
+    The season is over. Final standings and champion are locked. No further matches or roster changes are processed for this season.
+
+    **What happens:** Season results are archived, stats remain visible, and an announcement is made with the winners.
+
+    **Duration:** Permanent (completed seasons are not deleted).
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Season calendar example
+
+| Date | Event | Season phase |
+|---|---|---|
+| Jan 5 | Season announced | UPCOMING |
+| Jan 19 | Registration opens | REGISTRATION |
+| Feb 2 | Registration closes | → ACTIVE |
+| Feb 10 | Week 1 matches | ACTIVE |
+| Feb 17 | Week 2 matches | ACTIVE |
+| Feb 24 | Week 3 matches | ACTIVE |
+| Mar 3 | Week 4 matches | ACTIVE |
+| Mar 10 | Week 5 matches | ACTIVE |
+| Mar 17 | Playoff Round 1 | → PLAYOFFS |
+| Mar 24 | Playoff Finals | PLAYOFFS |
+| Mar 28 | Season complete | → COMPLETED |
+
+---
+
+## What happens to standings at each transition
+
+| Transition | Effect on standings |
+|---|---|
+| UPCOMING → REGISTRATION | No effect; no teams registered yet |
+| REGISTRATION → ACTIVE | All approved teams added to standings with 0 points |
+| ACTIVE → PLAYOFFS | Regular season standings finalized; seeding determined |
+| PLAYOFFS → COMPLETED | Playoff bracket results recorded; final champion determined |
+
+---
+
+## Season phases and team actions
+
+| Action | UPCOMING | REGISTRATION | ACTIVE | PLAYOFFS | COMPLETED |
+|---|---|---|---|---|---|
+| View season page | Yes | Yes | Yes | Yes | Yes |
+| Register team | No | Yes | No | No | No |
+| Play matches | No | No | Yes | Yes | No |
+| Submit results | No | No | Yes | Yes | No |
+| File disputes | No | No | Yes | Yes | No |
+| View standings | No | No | Yes | Yes | Yes |
+
+<Note>
+  Once the ACTIVE phase begins, registration is closed permanently for that season. Teams that missed registration must wait for the next season.
+</Note>

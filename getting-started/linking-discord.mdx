@@ -3,49 +3,105 @@ title: "Linking Discord"
 description: "Connect your Discord account to your C3 Esports profile — required to participate in matches."
 ---
 
-Discord is the primary communication channel for C3 Esports. Linking your Discord account is **required** before you can check in to matches or receive match notifications.
+Discord is the primary communication channel for C3 Esports. Linking your Discord account is **required** before you can join a team, check in to matches, or receive match notifications.
 
-If you signed up using **Continue with Discord**, your account is already linked — you can skip to [setting up your profile](/getting-started/setting-up-your-profile).
+<Note>
+  If you signed up using **Continue with Discord**, your account is already linked — you can skip to [setting up your profile](/getting-started/setting-up-your-profile).
+</Note>
+
+{/* TODO: add screenshot */}
+![The Connected Accounts section of the profile settings page showing a Connect Discord button](../images/linking-discord-connect-button.png)
+
+---
+
+## Why Discord is required
+
+C3 Esports uses Discord for:
+
+- **Team communication** — your manager and teammates contact you here
+- **Match notifications** — reminders when your match check-in window opens
+- **Staff support** — disputes, rule questions, and announcements happen in Discord
+- **Identity verification** — your Discord username is displayed on your team roster so opponents and staff can identify you
+
+Without a linked Discord account, you cannot appear in roster searches, and your manager will not be able to add you to a team.
 
 ---
 
 ## How to link Discord
 
-1. Sign in to [c3esports.com](https://c3esports.com).
-2. Click your avatar in the top-right corner and go to **Profile → Edit**.
-3. Scroll to the **Connected Accounts** section.
-4. Click **Connect Discord**.
-5. A Discord authorization window opens. Make sure you are logged into the **correct Discord account**, then click **Authorize**.
-6. You are redirected back. Your Discord username now appears under Connected Accounts.
+<Steps>
+  <Step title="Sign in to C3 Esports">
+    Go to [c3esports.com](https://c3esports.com) and sign in to your account.
+  </Step>
+  <Step title="Open your profile settings">
+    Click your avatar in the top-right corner and select **Profile → Settings** (or visit [c3esports.com/profile/settings](https://c3esports.com/profile/settings) directly).
+  </Step>
+  <Step title="Find Connected Accounts">
+    Scroll down to the **Connected Accounts** section. You will see a Discord row showing "Not connected."
+
+    {/* TODO: add screenshot */}
+    ![Profile settings page with Connected Accounts section visible](../images/linking-discord-settings-page.png)
+  </Step>
+  <Step title="Click Connect Discord">
+    Click the **Connect Discord** button. A Discord authorization window will open in a new tab or pop-up.
+
+    <Warning>
+      Make sure you are logged into the **correct Discord account** before clicking Authorize. You cannot link a Discord account that is already connected to another C3 Esports profile.
+    </Warning>
+  </Step>
+  <Step title="Authorize the application">
+    Review the requested permissions and click **Authorize**. Discord will redirect you back to c3esports.com automatically.
+
+    {/* TODO: add screenshot */}
+    ![Discord OAuth authorization screen showing C3 Esports requesting identify and email scopes](../images/linking-discord-oauth-screen.png)
+  </Step>
+  <Step title="Confirm the link">
+    After the redirect, your Discord username and avatar will appear under Connected Accounts. You are now fully linked.
+
+    {/* TODO: add screenshot */}
+    ![Connected Accounts section showing a green checkmark and Discord username](../images/linking-discord-success.png)
+  </Step>
+</Steps>
+
+<Tip>
+  If the authorization pop-up does not open, your browser may be blocking pop-ups from c3esports.com. Check your browser's address bar for a blocked pop-up notification and allow it, then try again.
+</Tip>
+
+---
+
+## What permissions C3 Esports requests
+
+When you authorize, the platform requests only two Discord OAuth scopes:
+
+| Scope | Purpose |
+|---|---|
+| `identify` | Reads your Discord username, discriminator, and avatar |
+| `email` | Associates your Discord email with your account for deduplication |
+
+We do **not** request permission to send messages as you, read your DMs, manage your servers, or join servers on your behalf.
 
 ---
 
 ## Troubleshooting
 
-### "This Discord account is already linked to another profile"
+<AccordionGroup>
+  <Accordion title='"This Discord account is already linked to another profile"'>
+    Each Discord account can only be connected to one C3 Esports profile.
 
-Each Discord account can only be connected to one C3 Esports account. If you see this error:
+    - You may have previously registered with this Discord account. Try signing in at [c3esports.com/auth/signin](https://c3esports.com/auth/signin) using **Continue with Discord** to recover that account.
+    - If you believe this is an error, open a support ticket in the [C3 Esports Discord server](https://discord.gg/c3esports) and provide your Discord username and the email address on your current account.
+  </Accordion>
+  <Accordion title="I authorized the wrong Discord account">
+    Contact staff via a support ticket in the C3 Esports Discord. They can unlink the incorrect account so you can connect the right one. Include your C3 Esports username and the Discord username you accidentally linked.
+  </Accordion>
+  <Accordion title="The page just redirected without linking anything">
+    This can happen if cookies or local storage were cleared mid-flow. Try again in a fresh browser tab. If the problem persists, try a different browser or disable any privacy extensions that block third-party cookies.
+  </Accordion>
+  <Accordion title="I need to link a different Discord account">
+    You must first unlink your current Discord account. Go to **Profile → Settings → Connected Accounts** and click **Disconnect** next to Discord, then follow the linking steps above with your new account.
 
-- You may have previously created an account. Try signing in with Discord at [c3esports.com/auth/signin](https://c3esports.com/auth/signin) to find it.
-- If you believe this is an error, contact staff in the [C3 Esports Discord](https://discord.gg/c3esports) with your Discord username so they can investigate.
-
-### I authorized the wrong Discord account
-
-Contact staff via a support ticket in Discord. They can unlink the wrong account so you can connect the correct one.
-
-### The authorization window didn't open
-
-Make sure your browser isn't blocking pop-ups from `c3esports.com`. Allow pop-ups and try again.
-
----
-
-## What C3 Esports can see on your Discord
-
-When you authorize, the platform requests these Discord scopes:
-
-| Scope | Why |
-|---|---|
-| `identify` | Reads your Discord username and avatar |
-| `email` | Associates your Discord email with your account |
-
-We do **not** request permission to send messages, read your DMs, or join servers on your behalf.
+    <Note>
+      You cannot disconnect Discord during an active season if you are on a registered roster. Contact staff if you need to make this change during a season.
+    </Note>
+  </Accordion>
+</AccordionGroup>

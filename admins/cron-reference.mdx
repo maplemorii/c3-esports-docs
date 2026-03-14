@@ -1,6 +1,128 @@
 ---
 title: "Cron Job Reference"
-description: "Scheduled background jobs and how to trigger them manually."
+description: "Scheduled background jobs, what they do, their schedule, and how to manually trigger them."
 ---
 
-<Note>This page is coming soon.</Note>
+C3 Esports runs several scheduled background jobs (cron jobs) that handle automation like polling for replay results, updating match statuses, and advancing season phases. This page describes each job, when it runs, and how to trigger it manually for testing or recovery.
+
+<Warning>
+  Manually triggering cron jobs can have real effects on the platform — matches may be updated, standings may change, and notifications may be sent. Only trigger jobs manually when you understand what they will do and have confirmed it is necessary.
+</Warning>
+
+---
+
+## Cron job overview
+
+| Job name | Endpoint | Schedule | What it does |
+|---|---|---|---|
+| Replay poller | `/api/cron/poll-replays` | Every **5 minutes** | Checks ballchasing.com for parsed replay data and stores results |
+| Match status updater | `/api/cron/update-matches` | Every **5 minutes** | Opens check-in windows, marks forfeits, auto-confirms pending results |
+| Season transition | `/api/cron/season-transition` | Every **10 minutes** | Advances season phases when their date conditions are met |
+| Standings recalculator | `/api/cron/recalculate-standings` | Every **15 minutes** | Recomputes all division standings from confirmed match results |
+
+---
+
+## Detailed job descriptions
+
+<AccordionGroup>
+  <Accordion title="Replay poller — /api/cron/poll-replays">
+    **Purpose:** After a replay is uploaded to ballchasing.com, parsing is typically triggered via a webhook. If the webhook fails or is delayed, this job polls all replays that are in `PROCESSING` status and checks whether ballchasing has finished parsing them.
+
+    **What it does:**
+    1. Fetches all match game records with replay status `PROCESSING`
+    2. Calls the ballchasing.com API for each to check parse status
+    3. If parsed successfully, stores the extracted stats (goals, assists, saves, shots, demos per player)
+    4. Updates the game status to `PARSED` or `FAILED`
+
+    **When to trigger manually:** If a replay has been stuck in `PROCESSING` for more than 15 minutes, manually trigger this job to force a status check.
+
+    **Schedule:** Every 5 minutes, 24/7.
+  </Accordion>
+  <Accordion title="Match status updater — /api/cron/update-matches">
+    **Purpose:** Keeps match statuses current without requiring manual intervention.
+
+    **What it does:**
+    1. Finds all `SCHEDULED` matches whose check-in window has opened (30 min before start time) and sets them to `CHECK_IN_OPEN`
+    2. Finds all `CHECK_IN_OPEN` matches whose start time has passed and checks team check-in status:
+       - Both teams checked in → set to `IN_PROGRESS`
+       - One or both teams did not check in → set to `FORFEITED` for the missing team(s)
+    3. Finds all `IN_PROGRESS` matches with a submitted result that has been pending for 24+ hours → auto-confirms and sets to `COMPLETED`
+
+    **When to trigger manually:** If you notice a match is stuck in an incorrect status (e.g., it should be `IN_PROGRESS` but is still showing `SCHEDULED`), trigger this job.
+
+    **Schedule:** Every 5 minutes.
+  </Accordion>
+  <Accordion title="Season transition — /api/cron/season-transition">
+    **Purpose:** Automatically advances seasons through their lifecycle phases based on configured dates.
+
+    **What it does:**
+    1. Finds all seasons where the current date has passed a phase transition date
+    2. `UPCOMING` → `REGISTRATION` when `registration_open_date` is reached
+    3. `REGISTRATION` → `ACTIVE` when `registration_close_date` is reached and the season start date has passed
+    4. `ACTIVE` → `PLAYOFFS` when all regular season weeks are completed (or a manual trigger by staff)
+    5. `PLAYOFFS` → `COMPLETED` when all playoff matches are resolved
+
+    **When to trigger manually:** After manually editing a season's phase dates, trigger this job to immediately apply the transition rather than waiting up to 10 minutes.
+
+    **Schedule:** Every 10 minutes.
+  </Accordion>
+  <Accordion title="Standings recalculator — /api/cron/recalculate-standings">
+    **Purpose:** Keeps standings accurate. Because match results can be confirmed asynchronously, standings are recalculated on a schedule rather than synchronously on every confirmation event.
+
+    **What it does:**
+    1. Fetches all `COMPLETED` matches for each active season
+    2. Recomputes wins, losses, draws, goals for, goals against, and points for each team
+    3. Re-sorts teams by points (then tiebreakers) and updates the standing rank
+    4. Writes the updated standings to the database
+
+    **When to trigger manually:** After manually overriding a match result or adjusting points, trigger this job so the standings page reflects your changes immediately.
+
+    **Schedule:** Every 15 minutes.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Triggering jobs manually
+
+You can trigger any cron job manually from two places:
+
+**Option 1 — Admin panel UI** (recommended):
+
+1. Go to [c3esports.com/admin/cron](https://c3esports.com/admin/cron).
+2. Find the job in the list.
+3. Click **Trigger Now**.
+4. The job runs immediately. Output and any errors are shown inline.
+
+{/* TODO: add screenshot */}
+![Cron admin page showing a table of jobs with last run time, next scheduled run, and a Trigger Now button](../images/cron-reference-panel.png)
+
+**Option 2 — Direct API call** (for testing/scripting):
+
+```bash
+curl -X POST https://c3esports.com/api/cron/poll-replays \
+  -H "Authorization: Bearer YOUR_ADMIN_API_KEY"
+```
+
+Replace `poll-replays` with the relevant job path. Admin API keys are managed in your profile settings under **Developer**.
+
+<Note>
+  All manual cron triggers are logged in the audit log with your username, which job was triggered, and when.
+</Note>
+
+---
+
+## Common scenarios
+
+| Problem | Solution |
+|---|---|
+| Replay stuck in "Processing" | Trigger `poll-replays` |
+| Match shows wrong status | Trigger `update-matches` |
+| Standings not updated after score override | Trigger `recalculate-standings` |
+| Season not advancing to next phase | Trigger `season-transition` |
+
+---
+
+## Cron job failure alerts
+
+If a cron job fails (throws an unhandled error), an error is logged to the application error tracker. Admins configured for error alerts will receive a notification. Check the application logs at [c3esports.com/admin/logs](https://c3esports.com/admin/logs) if you suspect a job is failing silently.

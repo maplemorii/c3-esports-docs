@@ -1,6 +1,141 @@
 ---
 title: "Replay Parsing"
-description: "How replay files are processed and scores are extracted."
+description: "How replay files flow from upload through ballchasing.com to parsed stats on the match page."
 ---
 
-<Note>This page is coming soon.</Note>
+When you upload a `.replay` file to a C3 Esports match, it goes through an automated pipeline that extracts scores, player identities, and detailed stats. This page explains how that pipeline works, what data is extracted, and what happens when things go wrong.
+
+---
+
+## The replay pipeline
+
+```
+Player uploads .replay file
+        │
+        ▼
+C3 Esports stores the file
+        │
+        ▼
+File forwarded to ballchasing.com API
+        │
+        ▼
+ballchasing.com parses the file
+        │
+        ├── Success: sends webhook to C3 Esports
+        │                   │
+        │                   ▼
+        │          C3 Esports stores parsed data
+        │                   │
+        │                   ▼
+        │          Stats displayed on match page
+        │
+        └── No webhook in time: polling fallback
+                    │
+                    ▼
+          /api/cron/poll-replays runs every 5 min
+          and checks ballchasing for parse status
+```
+
+---
+
+## Step-by-step breakdown
+
+<Steps>
+  <Step title="Player uploads the file">
+    A player or manager uploads the `.replay` file on the match page game slot. The file is stored on C3 Esports' servers.
+  </Step>
+  <Step title="File forwarded to ballchasing.com">
+    Immediately after storage, the platform sends the file to the [ballchasing.com](https://ballchasing.com) API. Ballchasing is a third-party Rocket League replay analysis service that specializes in replay parsing.
+
+    The replay is uploaded to a C3 Esports-owned ballchasing group, so all league replays are organized in one place and accessible via the ballchasing web interface.
+  </Step>
+  <Step title="Ballchasing parses the file">
+    Ballchasing reads the binary `.replay` format, extracts all player data, scores, and game settings, and stores the parsed result. This typically takes 10–60 seconds.
+  </Step>
+  <Step title="Webhook notification (primary path)">
+    When parsing is complete, ballchasing sends a webhook (an HTTP POST) to the C3 Esports API. The platform receives the parsed data and stores it, then updates the replay status to `PARSED`.
+  </Step>
+  <Step title="Polling fallback (backup path)">
+    If the webhook does not arrive (due to a network issue, ballchasing outage, or webhook misconfiguration), the platform's cron job (`/api/cron/poll-replays`, runs every 5 minutes) actively queries ballchasing for the parse status of all pending replays and retrieves the data on the next poll cycle.
+  </Step>
+  <Step title="Data stored and displayed">
+    Once parsed data is received, the match page updates to show the game scoreboard, per-player stats, and any flags (score mismatches, unknown players, etc.).
+  </Step>
+</Steps>
+
+---
+
+## What data is extracted
+
+From each parsed `.replay` file, C3 Esports extracts and stores:
+
+| Data point | Description |
+|---|---|
+| **Final score** | Goals scored by each team at the end of the game (including OT goals) |
+| **Player Epic usernames** | The Epic Games display name for each of the 6 players in the game |
+| **Goals per player** | How many goals each player scored |
+| **Assists per player** | How many assists each player recorded |
+| **Saves per player** | How many shots each player saved |
+| **Shots per player** | How many shots on target each player took |
+| **Demos per player** | How many demolitions each player scored |
+| **In-game score per player** | The Rocket League match score (not league points) |
+| **MVP flag** | Which player received the in-game MVP designation |
+| **Game settings** | Arena, mutators, team size, match length (used to verify compliance) |
+| **Match duration** | Total time played including overtime |
+
+---
+
+## How stats are displayed
+
+After parsing, stats are visible in two places:
+
+1. **Match page** — each game in the series has an expandable scoreboard showing all 6 players' stats side-by-side.
+
+{/* TODO: add screenshot */}
+![Match page showing an expanded game scoreboard with per-player stats in two columns for each team](../images/replay-parsing-scoreboard.png)
+
+2. **Player profile** — aggregated season stats (totals across all parsed games) are shown on each player's profile page.
+
+{/* TODO: add screenshot */}
+![Player profile stats section showing seasonal totals for Goals, Assists, Saves, Shots, and Demos](../images/replay-parsing-player-stats.png)
+
+---
+
+## Score verification
+
+After parsing, the platform automatically compares the parsed score against the score submitted by the manager. If they do not match, a **Score Mismatch** flag is applied.
+
+A score mismatch can happen for legitimate reasons (wrong replay uploaded to the wrong game slot) or for concerning ones (submitted score was incorrect). Staff review all flagged games.
+
+---
+
+## Ballchasing.com access
+
+All C3 Esports league replays uploaded through the platform are organized in a ballchasing group. The ballchasing links for individual replays are displayed on the match page, allowing staff, players, and anyone with the link to view the full parsed replay data on ballchasing.com directly.
+
+<Tip>
+  If you want to review your own performance in detail, click the ballchasing link on any game's parsed entry. Ballchasing provides detailed charts, heat maps, and advanced stats beyond what C3 Esports displays natively.
+</Tip>
+
+---
+
+## What happens when parsing fails
+
+If parsing fails (the file is corrupted, truncated, or ballchasing cannot read it), the game slot shows a `FAILED` status. Staff or the uploading player can:
+
+1. Trigger a reparse of the same file (if the failure was transient)
+2. Upload a replacement replay file (if the original file was corrupted)
+
+See [Replay Reparsing](/staff/replay-reparsing) for the full process.
+
+---
+
+## Privacy and data retention
+
+Replay files uploaded to C3 Esports are:
+
+- Forwarded to ballchasing.com for parsing (ballchasing's privacy policy applies)
+- Stored on C3 Esports' servers for the duration of the season
+- Retained after season completion for historical record-keeping and dispute reference
+
+Parsed stat data (not the raw replay file) is retained indefinitely as part of the season archive.

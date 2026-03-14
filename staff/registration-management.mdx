@@ -1,6 +1,113 @@
 ---
 title: "Registration Management"
-description: "Reviewing, approving, and managing team registrations."
+description: "Reviewing team registrations, checking roster eligibility, approving or denying applications."
 ---
 
-<Note>This page is coming soon.</Note>
+When registration is open, team managers submit their teams for the upcoming season. Your job as staff is to review each registration, verify eligibility, and approve or deny with a clear reason.
+
+---
+
+## Accessing the registration queue
+
+Go to [c3esports.com/admin/registrations](https://c3esports.com/admin/registrations). The queue shows all registrations with status `PENDING` for the current (or selected) season, sorted by submission time.
+
+{/* TODO: add screenshot */}
+![Registration management page showing a table of pending registrations with team name, division, roster size, eligibility status, and action buttons](../images/registration-management-queue.png)
+
+---
+
+## Reviewing a registration
+
+Click on any pending registration to open the detail view. This shows:
+
+- **Team info**: name, tag, logo, description
+- **Division requested**: Premier, Challengers, or Contenders
+- **Manager**: who submitted and when
+- **Roster**: all players on the roster at time of submission, with eligibility indicators
+
+{/* TODO: add screenshot */}
+![Registration detail view showing team info at top, roster table with eligibility checkmarks, and Approve/Deny buttons at the bottom](../images/registration-management-detail.png)
+
+### Eligibility indicators
+
+Each player row shows three eligibility flags:
+
+| Flag | Meaning |
+|---|---|
+| .edu verified | Player has a verified .edu email |
+| Discord linked | Player has connected a Discord account |
+| No duplicate roster | Player is not on another active team |
+
+<Warning>
+  A registration can be submitted with ineligible players. The platform does not block submission — it only displays warnings. You must review these manually. A team that goes into the season with ineligible players will cause disputes and headaches down the road.
+</Warning>
+
+---
+
+## Approving a registration
+
+If the roster has at least 3 eligible players and there are no red flags, click **Approve**. The team's status changes from `PENDING` to `REGISTERED` and they are added to the standings for their division (with 0 points).
+
+The manager receives a notification on the platform and a Discord notification if they have that enabled.
+
+<Tip>
+  If a registration has 1–2 ineligible players but still meets the 3-player minimum with eligible players, you can approve with a warning note. Include in your approval notes that the flagged players must resolve eligibility before competing.
+</Tip>
+
+---
+
+## Denying a registration
+
+If a registration cannot be approved as-is, click **Deny** and provide a clear, actionable reason.
+
+### Good denial reasons (specific and fixable):
+- "Roster has only 2 eligible players — 3 minimum required. PlayerX needs to verify their .edu email."
+- "Team tag 'UTA' is already taken by another registered team. Please choose a different tag."
+- "PlayerY appears on two rosters simultaneously. Remove them from the other team before resubmitting."
+
+### Avoid vague denial reasons:
+- "Ineligible" (which requirement? which player?)
+- "Please fix and resubmit" (fix what?)
+
+<Note>
+  After denial, the team's status returns to `DRAFT` and the manager can resubmit during the registration window. Make sure your denial reason gives them everything they need to fix the issue.
+</Note>
+
+---
+
+## Bulk approving registrations
+
+If you have many clean registrations (all green eligibility flags, correct roster sizes, unique names/tags), you can bulk-approve:
+
+1. On the registrations list, check the checkboxes next to all registrations you want to approve.
+2. Click **Bulk Approve** in the action bar that appears.
+3. Confirm. All selected registrations are approved simultaneously.
+
+{/* TODO: add screenshot */}
+![Registration list with multiple rows checked and a Bulk Approve button visible in the top action bar](../images/registration-management-bulk.png)
+
+<Warning>
+  Review each registration before bulk-approving. The bulk action does not show individual eligibility warnings — you must have already reviewed each one individually. Do not use bulk approve as a shortcut to skip review.
+</Warning>
+
+---
+
+## Division assignment review
+
+Pay attention to the division each team is requesting. If a team's roster is clearly overqualified or underqualified for their chosen division, note it:
+
+- You may approve but add a note flagging the mismatch
+- You may contact the manager via Discord to discuss a better division fit
+- Staff cannot force a division change, but you can deny and ask them to resubmit in a more appropriate division if there is a clear case
+
+See [Division Tiers](/reference/division-tiers) for skill level descriptions per division.
+
+---
+
+## After registration closes
+
+Once the registration window closes:
+
+1. Make sure all pending registrations have been acted on (approved or denied). No applications should remain in `PENDING` status.
+2. If a registration was missed and the window has closed, contact an admin — admins can re-open the window briefly or manually update the status.
+3. Proceed to [Season Management](/staff/season-management) to schedule match weeks.

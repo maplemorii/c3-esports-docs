@@ -1,6 +1,124 @@
 ---
 title: "Audit Log"
-description: "How to read and search the immutable action log."
+description: "What is logged, how to filter by action, user, and date, and why the audit log exists."
 ---
 
-<Note>This page is coming soon.</Note>
+The audit log at [c3esports.com/admin/audit-log](https://c3esports.com/admin/audit-log) is an immutable record of all significant actions taken on the platform. It is the authoritative source of truth for "who did what, when."
+
+<Note>
+  The audit log is **read-only**. Entries cannot be edited, deleted, or hidden — not even by admins. This is intentional. If you need to add context to a past action, you can add a note to the relevant entity (match, user, etc.) but the log entry itself is permanent.
+</Note>
+
+---
+
+## Why the audit log exists
+
+The audit log serves several important purposes:
+
+- **Accountability** — every admin and staff action is attributed to a specific user
+- **Dispute investigation** — when a score is overridden or a roster is changed, the log shows who did it and when
+- **Debugging** — if something unexpected happened on the platform, the log helps trace the cause
+- **Compliance** — a permanent record protects both the league and its participants
+
+---
+
+## What gets logged
+
+The following action categories are recorded in the audit log:
+
+<AccordionGroup>
+  <Accordion title="User actions">
+    - Account creation and deletion
+    - Email verification events
+    - Discord linking/unlinking
+    - Role changes (who made the change, old role, new role)
+    - Bans and unbans (reason included)
+    - Password changes
+  </Accordion>
+  <Accordion title="Team actions">
+    - Team creation and disbanding
+    - Roster additions and removals
+    - Manager role transfers
+    - Team settings changes (name, tag, logo)
+    - Registration submissions
+  </Accordion>
+  <Accordion title="Match actions">
+    - Check-in events (per player)
+    - Result submissions (who submitted, when)
+    - Result confirmations
+    - Result disputes (filing, resolution)
+    - Staff score overrides (reason included)
+    - Forfeit declarations
+    - Replay uploads and parse events
+  </Accordion>
+  <Accordion title="Season and admin actions">
+    - Season creation, phase transitions
+    - Registration window open/close
+    - Division creation
+    - Announcement creation, edits, deletions
+    - Cron job manual triggers
+    - Standings manual adjustments
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Reading log entries
+
+Each log entry contains:
+
+| Field | Description |
+|---|---|
+| **Timestamp** | Exact date and time (UTC) of the action |
+| **Action** | A machine-readable action code (e.g., `MATCH_RESULT_OVERRIDE`) |
+| **Actor** | The user who performed the action (username + ID) |
+| **Target** | The entity affected (a user, team, match, season, etc.) |
+| **Details** | Action-specific data — new values, reason, old vs. new |
+| **IP address** | The IP address the action originated from (for security investigations) |
+
+{/* TODO: add screenshot */}
+![Audit log table showing columns for timestamp, action, actor, target, and a Details button](../images/audit-log-table.png)
+
+---
+
+## Filtering the audit log
+
+The audit log can be filtered and searched along several dimensions:
+
+<Steps>
+  <Step title="Filter by action type">
+    Use the **Action** dropdown to narrow to a specific action category — for example, only show `MATCH_RESULT_OVERRIDE` events to see all manual score changes.
+  </Step>
+  <Step title="Filter by user">
+    Enter a username or user ID in the **Actor** or **Target** field. This shows all actions taken by a specific person, or all actions that happened to a specific entity.
+  </Step>
+  <Step title="Filter by date range">
+    Use the **From** and **To** date pickers to narrow the log to a specific time window.
+  </Step>
+  <Step title="Combine filters">
+    Filters stack — you can show "all MATCH_RESULT_OVERRIDE actions taken by admin JohnDoe in the last 30 days" by combining the action, actor, and date filters.
+  </Step>
+</Steps>
+
+{/* TODO: add screenshot */}
+![Audit log filter bar showing action dropdown, actor search field, and date range pickers](../images/audit-log-filters.png)
+
+<Tip>
+  When investigating a dispute, start by filtering to the match ID as the target. This shows all events related to that match in chronological order — check-ins, result submissions, uploads, and any staff overrides.
+</Tip>
+
+---
+
+## Exporting log entries
+
+You can export filtered log results to CSV from the **Export** button in the top-right of the audit log page. The export includes all visible columns for the filtered result set.
+
+<Note>
+  Exports are also logged — the audit log will record that you exported entries, including the filter parameters you used.
+</Note>
+
+---
+
+## Per-user audit history
+
+You can also view a user-scoped version of the audit log from their profile in [User Management](/admins/user-management). This shows only log entries where that user is either the actor or the target, which is useful for investigating a specific account's history without filtering the global log manually.

@@ -1,6 +1,106 @@
 ---
 title: "Standings Tiebreakers"
-description: "How ties in the standings are broken."
+description: "How tied standings are broken, in order, with worked examples."
 ---
 
-<Note>This page is coming soon.</Note>
+When two or more teams finish with the same number of league points in a division, tiebreakers determine their final rankings. These rankings affect playoff seeding, so tiebreakers matter even late in the season.
+
+---
+
+## Tiebreaker order
+
+Apply these in sequence until the tie is broken:
+
+1. **Head-to-head record** between the tied teams
+2. **Head-to-head goal difference** between the tied teams
+3. **Overall goal difference** (entire season)
+4. **Coin flip** (staff-administered, logged in the audit log)
+
+<Note>
+  Tiebreakers are only applied to teams that are tied in points. A team with more points is always ranked higher, regardless of goal difference.
+</Note>
+
+---
+
+## Tiebreaker 1: Head-to-head record
+
+Look only at matches played **between the tied teams**. Ignore all other matches.
+
+Count wins and losses in those head-to-head matches. The team with more head-to-head wins is ranked higher.
+
+**Example (3-way tie at 9 points):**
+
+| Match | Result |
+|---|---|
+| Team A vs. Team B | Team A wins |
+| Team A vs. Team C | Team C wins |
+| Team B vs. Team C | Team B wins |
+
+Head-to-head record among tied teams:
+- Team A: 1-1 (1 point in H2H)
+- Team B: 1-1 (1 point in H2H)
+- Team C: 1-1 (1 point in H2H)
+
+Still tied — proceed to Tiebreaker 2.
+
+---
+
+## Tiebreaker 2: Head-to-head goal difference
+
+Using only the matches played between the tied teams, calculate **goals for minus goals against** for each team.
+
+**Continuing the example above:**
+
+| Match | Scores |
+|---|---|
+| Team A vs. Team B | Game 1: A 3-1 B, Game 2: A 2-1 B → Team A wins 2-0 |
+| Team A vs. Team C | Game 1: A 1-2 C, Game 2: A 2-3 C → Team C wins 2-0 |
+| Team B vs. Team C | Game 1: B 2-1 C, Game 2: B 1-2 C, Game 3: B 3-2 C → Team B wins 2-1 |
+
+Head-to-head goals (in games between tied teams only):
+
+| Team | Goals For | Goals Against | H2H GD |
+|---|---|---|---|
+| Team A | 3+2+1+2 = 8 | 1+1+2+3 = 7 | **+1** |
+| Team B | 1+1+2+1+3+2 = 10 | 3+2+2+1+1+2 = 11 | **-1** |
+| Team C | 2+3+1+2 = 8 | 1+2+2+3 = 8 | **0** |
+
+H2H GD ranking: **Team A (+1) > Team C (0) > Team B (-1)**
+
+Tie broken: **1st: Team A, 2nd: Team C, 3rd: Team B**.
+
+---
+
+## Tiebreaker 3: Overall goal difference
+
+If H2H GD is also tied, use the **entire season's** goal difference (GF minus GA across all matches, not just against the tied teams).
+
+<Tip>
+  This is why playing as competitively as possible — even in series where the result feels decided — matters. A 5-0 win is better for your overall GD than a 1-0 win, and overall GD can be the difference between a #2 seed and a #4 seed in playoffs.
+</Tip>
+
+---
+
+## Tiebreaker 4: Coin flip
+
+In the extremely rare case that overall GD is also tied, a coin flip is administered by staff. The result is announced in the C3 Esports Discord and logged in the audit log.
+
+---
+
+## Multi-team ties
+
+When three or more teams are tied in points, the tiebreaker is applied as a group:
+
+1. Calculate H2H record only among the tied teams (ignore matches against non-tied teams).
+2. If any team can be separated by H2H record, extract them from the group. The remaining tied teams repeat the process from the beginning.
+3. Continue until all teams are separated or a coin flip is needed.
+
+**Important:** If a 3-way H2H record still leaves teams tied, you do not "reset" to overall standings — you continue through the tiebreaker list (H2H GD → overall GD → coin flip) for the remaining tied teams.
+
+---
+
+## When tiebreakers are calculated
+
+Tiebreakers are recalculated automatically every time standings are refreshed. You do not need to submit a special request — the system computes them continuously based on confirmed match results.
+
+At the end of the regular season, staff freeze and verify the final standings (including tiebreakers) before announcing playoff seedings. Any discrepancies should be reported to staff immediately.

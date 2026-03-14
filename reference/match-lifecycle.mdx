@@ -1,6 +1,130 @@
 ---
 title: "Match Status Lifecycle"
-description: "Every state a match can be in, from scheduled to completed."
+description: "Every status a match can be in, the transitions between them, and what triggers each change."
 ---
 
-<Note>This page is coming soon.</Note>
+Every match in C3 Esports moves through a defined set of statuses from scheduling to completion. Understanding this lifecycle helps players, managers, and staff know what to expect and what actions are available at each stage.
+
+---
+
+## Status overview
+
+```
+SCHEDULED
+    │
+    │ (30 min before match time)
+    ▼
+CHECK_IN_OPEN
+    │
+    ├── Both teams check in ──────────────────────────────┐
+    │                                                      ▼
+    │                                                 IN_PROGRESS
+    │                                                      │
+    │                                        Result submitted by one team
+    │                                                      ▼
+    │                                           PENDING_CONFIRMATION
+    │                                                      │
+    │                               ┌──── Opponent confirms or 24h passes
+    │                               │                      │
+    └── One or both teams           │               COMPLETED ◄─────┐
+        miss check-in               │                               │
+              │                     └── Opponent disputes ──► (dispute resolution)
+              ▼                                                      │
+         FORFEITED                                                   │
+                                                    Staff override ──┘
+
+CANCELLED (can occur from SCHEDULED or IN_PROGRESS — admin action)
+```
+
+---
+
+## Status definitions
+
+<AccordionGroup>
+  <Accordion title="SCHEDULED">
+    The match has been created and assigned a time, but the check-in window has not opened yet. The match appears on both teams' dashboards with a countdown timer.
+
+    **Available actions:** None (players wait). Managers can request a reschedule.
+  </Accordion>
+  <Accordion title="CHECK_IN_OPEN">
+    The 30-minute check-in window is active. Players can click Check In on the match page.
+
+    **Available actions:** Check in (any roster player). Managers can contact staff if an emergency prevents check-in.
+
+    **Triggered by:** The match status cron job (`/api/cron/update-matches`) when the current time is 30+ minutes before the scheduled match time.
+  </Accordion>
+  <Accordion title="IN_PROGRESS">
+    Both teams have checked in. The match is actively being played.
+
+    **Available actions:** None on the platform during gameplay. After the series ends, the manager submits results.
+
+    **Triggered by:** Both teams having at least one player check in by the match start time.
+  </Accordion>
+  <Accordion title="FORFEITED">
+    One or both teams failed to check in by match time. The match is over without being played.
+
+    **Available actions:** The present team's manager clicks "Record Forfeit" to formally log the result.
+
+    **Triggered by:** The match cron job when the match start time passes and one or both teams have no check-in.
+
+    **Note:** The match page shows which team forfeited and the reason.
+  </Accordion>
+  <Accordion title="PENDING_CONFIRMATION">
+    A result has been submitted by one team's manager. The opposing team has 24 hours to confirm or dispute.
+
+    **Available actions:** Opposing manager: Confirm Result or Dispute.
+
+    **Triggered by:** A manager submitting game-by-game scores and replay files via the result form.
+  </Accordion>
+  <Accordion title="COMPLETED">
+    The match result has been finalized. Standings have been updated.
+
+    **Triggered by:** Manual confirmation by the opposing manager, OR auto-confirmation after 24 hours without action, OR staff resolving a dispute.
+
+    **Note:** Completed matches cannot be changed except by staff through a formal dispute process.
+  </Accordion>
+  <Accordion title="CANCELLED">
+    The match was cancelled by staff and no result is recorded. Neither team gains or loses points.
+
+    **Triggered by:** Admin/staff action only — used for scheduling errors, duplicate matches, or other administrative reasons.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Timeline example: a normal match
+
+| Time | Event | Status |
+|---|---|---|
+| 7:00 PM ET | Match created in system | SCHEDULED |
+| 7:30 PM ET | Check-in window opens | CHECK_IN_OPEN |
+| 7:35 PM ET | Team A checks in | CHECK_IN_OPEN |
+| 7:52 PM ET | Team B checks in | CHECK_IN_OPEN |
+| 8:00 PM ET | Match start time; both teams checked in | IN_PROGRESS |
+| 9:15 PM ET | Series ends; teams finish playing | IN_PROGRESS |
+| 9:30 PM ET | Team A manager submits result and replays | PENDING_CONFIRMATION |
+| 9:45 PM ET | Team B manager reviews and confirms | COMPLETED |
+
+---
+
+## Timeline example: forfeit
+
+| Time | Event | Status |
+|---|---|---|
+| 7:30 PM ET | Check-in opens | CHECK_IN_OPEN |
+| 7:48 PM ET | Team A checks in | CHECK_IN_OPEN |
+| 8:00 PM ET | Match time; Team B has not checked in | FORFEITED |
+| 8:05 PM ET | Team A manager records the forfeit | FORFEITED (finalized) |
+| 8:05 PM ET | Standings update: Team A +3pts | COMPLETED |
+
+---
+
+## What triggers status changes
+
+Most status transitions happen automatically via the match status cron job (`/api/cron/update-matches`) which runs every 5 minutes. Manual triggers (staff action or manager action) can also advance a match status:
+
+| Trigger type | Transitions caused |
+|---|---|
+| Cron job (automatic) | SCHEDULED → CHECK_IN_OPEN, CHECK_IN_OPEN → IN_PROGRESS or FORFEITED, PENDING_CONFIRMATION → COMPLETED (auto-confirm) |
+| Manager action | IN_PROGRESS → PENDING_CONFIRMATION (submit result), PENDING_CONFIRMATION → COMPLETED (confirm) |
+| Staff action | Any status → CANCELLED, COMPLETED → score override, FORFEITED → declared by staff |

@@ -1,6 +1,101 @@
 ---
 title: "Standings Management"
-description: "Manual edits and recalculating division standings."
+description: "View per-division standings, recalculate from results, and make emergency point adjustments."
 ---
 
-<Note>This page is coming soon.</Note>
+The standings management panel lets staff view, validate, and — in rare cases — manually adjust the standings for any division in any season.
+
+<Warning>
+  Manual point adjustments bypass the normal match result system and leave no automatic paper trail of *why* a team received extra or fewer points. Always use the audit log reason field thoroughly and announce significant adjustments in the staff Discord channel.
+</Warning>
+
+---
+
+## Viewing standings
+
+Go to [c3esports.com/admin/standings](https://c3esports.com/admin/standings). Select a season and division from the dropdowns to view the current standings table.
+
+The admin standings view shows the same data as the public view, plus:
+
+- Last recalculated timestamp
+- Per-match breakdown (click any team to see their match-by-match record)
+- Any manual adjustment history for each team
+
+{/* TODO: add screenshot */}
+![Admin standings view showing the division standings table with a "Last updated 3 minutes ago" timestamp and a Recalculate button](../images/standings-management-view.png)
+
+---
+
+## Triggering a standings recalculation
+
+Standings are recalculated automatically every 15 minutes by the cron job. To force an immediate recalculation:
+
+1. Click **Recalculate Standings** on the standings management page.
+2. The system re-reads all confirmed match results for the selected season and division and recomputes every team's points, wins, losses, goal difference, and rank.
+3. The page refreshes with updated standings.
+
+<Tip>
+  Always trigger a recalculation after manually overriding a match result or making a point adjustment. Do not wait for the scheduled cron job — standings may look wrong to users in the meantime.
+</Tip>
+
+---
+
+## Manual point adjustments
+
+Manual adjustments are an emergency tool for situations where the normal match system cannot produce the correct result. Examples of legitimate uses:
+
+- Awarding points for a match that was cancelled due to a platform error on your end
+- Reversing points awarded by a match that was overturned (if the override mechanism alone was insufficient)
+- Applying a penalty to a team for a severe rule violation (per league rules)
+
+<Steps>
+  <Step title="Open the division standings">
+    Navigate to the season and division you need to adjust.
+  </Step>
+  <Step title="Find the team and click Adjust Points">
+    Click the three-dot menu next to the team row and select **Adjust Points**.
+  </Step>
+  <Step title="Enter the adjustment amount">
+    Enter a positive number to add points, or a negative number to deduct points. The adjustment is applied on top of the team's calculated total — it does not replace it.
+
+    Example: if a team has 9 points from matches and you add +3, they will show 12 points in standings.
+
+    {/* TODO: add screenshot */}
+    ![Adjust points dialog showing a text field for the adjustment amount and a reason text area](../images/standings-management-adjust.png)
+  </Step>
+  <Step title="Enter a detailed reason">
+    The reason is stored in the audit log and shown to admins viewing that team's adjustment history. Be specific:
+
+    > "+3 points awarded to compensate for Week 4 match MATCH-ID which was cancelled due to a platform database error preventing check-in. Both teams present and ready per Discord screenshots."
+  </Step>
+  <Step title="Confirm and recalculate">
+    Click **Apply Adjustment**, then trigger a recalculation to see the updated standings immediately.
+  </Step>
+</Steps>
+
+---
+
+## Viewing adjustment history
+
+To see all manual adjustments made to a division's standings:
+
+1. On the standings management page, click **Adjustment History**.
+2. A log of all manual adjustments is displayed: team, amount, reason, and which staff member made the change.
+
+This is your audit trail for any standings adjustments.
+
+---
+
+## Recalculate vs. manual adjustment: when to use which
+
+| Situation | Action |
+|---|---|
+| Standings look wrong after a match result was confirmed | Trigger Recalculate |
+| A match result was overridden by staff | Trigger Recalculate |
+| A match needs to count differently from what the result says | Manual adjustment |
+| A team needs a penalty point deduction | Manual adjustment |
+| You want to verify standings are correct | Trigger Recalculate and compare |
+
+<Note>
+  Recalculation does **not** remove manual adjustments. Adjustments are stored separately and added to the computed total each time standings are recalculated. If an adjustment was made in error, use a negative adjustment to reverse it — do not try to "fix" it via recalculation alone.
+</Note>
