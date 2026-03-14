@@ -10,14 +10,7 @@
   "colors": {
     "primary": "#C41C35",
     "light": "#e05470",
-    "dark": "#9b1528",
-    "background": {
-      "dark": "#090909"
-    },
-    "anchors": {
-      "from": "#C41C35",
-      "to": "#1e3a8a"
-    }
+    "dark": "#9b1528"
   },
   "topbarLinks": [
     {
@@ -41,94 +34,96 @@
       "url": "/rules/eligibility"
     }
   ],
-  "navigation": [
-    {
-      "group": "Getting Started",
-      "pages": [
-        "getting-started/welcome",
-        "getting-started/creating-your-account",
-        "getting-started/linking-discord",
-        "getting-started/setting-up-your-profile"
-      ]
-    },
-    {
-      "group": "Players",
-      "pages": [
-        "players/overview",
-        "players/joining-a-team",
-        "players/leaving-a-team",
-        "players/match-schedule",
-        "players/checking-in",
-        "players/submitting-results",
-        "players/uploading-replays",
-        "players/filing-a-dispute",
-        "players/standings-and-stats"
-      ]
-    },
-    {
-      "group": "Team Managers",
-      "pages": [
-        "managers/overview",
-        "managers/creating-a-team",
-        "managers/managing-roster",
-        "managers/registering-for-season",
-        "managers/managing-match-results",
-        "managers/filing-a-dispute",
-        "managers/team-settings",
-        "managers/roster-eligibility"
-      ]
-    },
-    {
-      "group": "Staff",
-      "pages": [
-        "staff/overview",
-        "staff/season-management",
-        "staff/registration-management",
-        "staff/match-management",
-        "staff/dispute-resolution",
-        "staff/standings-management",
-        "staff/replay-reparsing"
-      ]
-    },
-    {
-      "group": "Admins",
-      "pages": [
-        "admins/overview",
-        "admins/user-management",
-        "admins/bracket-management",
-        "admins/audit-log",
-        "admins/announcements",
-        "admins/cron-reference"
-      ]
-    },
-    {
-      "group": "League Rules & Policies",
-      "pages": [
-        "rules/eligibility",
-        "rules/roster-rules",
-        "rules/match-rules",
-        "rules/check-in-policy",
-        "rules/result-deadlines",
-        "rules/replay-requirements",
-        "rules/dispute-policy",
-        "rules/code-of-conduct",
-        "rules/anti-smurfing"
-      ]
-    },
-    {
-      "group": "Reference",
-      "pages": [
-        "reference/season-lifecycle",
-        "reference/match-lifecycle",
-        "reference/division-tiers",
-        "reference/points-system",
-        "reference/tiebreakers",
-        "reference/match-formats",
-        "reference/replay-parsing",
-        "reference/glossary"
-      ]
-    }
-  ],
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "getting-started/welcome",
+          "getting-started/creating-your-account",
+          "getting-started/linking-discord",
+          "getting-started/setting-up-your-profile"
+        ]
+      },
+      {
+        "group": "Players",
+        "pages": [
+          "players/overview",
+          "players/joining-a-team",
+          "players/leaving-a-team",
+          "players/match-schedule",
+          "players/checking-in",
+          "players/submitting-results",
+          "players/uploading-replays",
+          "players/filing-a-dispute",
+          "players/standings-and-stats"
+        ]
+      },
+      {
+        "group": "Team Managers",
+        "pages": [
+          "managers/overview",
+          "managers/creating-a-team",
+          "managers/managing-roster",
+          "managers/registering-for-season",
+          "managers/managing-match-results",
+          "managers/filing-a-dispute",
+          "managers/team-settings",
+          "managers/roster-eligibility"
+        ]
+      },
+      {
+        "group": "Staff",
+        "pages": [
+          "staff/overview",
+          "staff/season-management",
+          "staff/registration-management",
+          "staff/match-management",
+          "staff/dispute-resolution",
+          "staff/standings-management",
+          "staff/replay-reparsing"
+        ]
+      },
+      {
+        "group": "Admins",
+        "pages": [
+          "admins/overview",
+          "admins/user-management",
+          "admins/bracket-management",
+          "admins/audit-log",
+          "admins/announcements",
+          "admins/cron-reference"
+        ]
+      },
+      {
+        "group": "League Rules & Policies",
+        "pages": [
+          "rules/eligibility",
+          "rules/roster-rules",
+          "rules/match-rules",
+          "rules/check-in-policy",
+          "rules/result-deadlines",
+          "rules/replay-requirements",
+          "rules/dispute-policy",
+          "rules/code-of-conduct",
+          "rules/anti-smurfing"
+        ]
+      },
+      {
+        "group": "Reference",
+        "pages": [
+          "reference/season-lifecycle",
+          "reference/match-lifecycle",
+          "reference/division-tiers",
+          "reference/points-system",
+          "reference/tiebreakers",
+          "reference/match-formats",
+          "reference/replay-parsing",
+          "reference/glossary"
+        ]
+      }
+    ]
+  },
   "footerSocials": {
     "discord": "https://discord.gg/c3esports"
   },
