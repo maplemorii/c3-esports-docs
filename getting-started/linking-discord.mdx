@@ -10,7 +10,10 @@ Discord is the primary communication channel for C3 Esports. Linking your Discor
 </Note>
 
 {/* TODO: add screenshot */}
-![The Connected Accounts section of the profile settings page showing a Connect Discord button](../images/linking-discord-connect-button.png)
+
+<Frame>
+  ![Linking Discord Connect Button](/images/linking-discord-connect-button.png)
+</Frame>
 
 ---
 
@@ -34,16 +37,19 @@ Without a linked Discord account, you cannot appear in roster searches, and your
     Go to [c3esports.com](https://c3esports.com) and sign in to your account.
   </Step>
   <Step title="Open your profile settings">
-    Click your avatar in the top-right corner and select **Profile → Settings** (or visit [c3esports.com/profile/settings](https://c3esports.com/profile/settings) directly).
+    Click your avatar in the top-right corner and select **Dashboard → Profile** (or visit [c3esports.com/profile](https://c3esports.com/profile/settings) directly).
   </Step>
   <Step title="Find Connected Accounts">
-    Scroll down to the **Connected Accounts** section. You will see a Discord row showing "Not connected."
+    Scroll down to the **Linked Accounts** section. You will see a Discord section showing "Not linked."
 
     {/* TODO: add screenshot */}
-    ![Profile settings page with Connected Accounts section visible](../images/linking-discord-settings-page.png)
+
+    <Frame>
+      ![Linking Discord Settings Page](/images/linking-discord-settings-page.png)
+    </Frame>
   </Step>
   <Step title="Click Connect Discord">
-    Click the **Connect Discord** button. A Discord authorization window will open in a new tab or pop-up.
+    Click the **Link via Discord** button. A Discord authorization window will open in a new tab or pop-up.
 
     <Warning>
       Make sure you are logged into the **correct Discord account** before clicking Authorize. You cannot link a Discord account that is already connected to another C3 Esports profile.
@@ -53,12 +59,14 @@ Without a linked Discord account, you cannot appear in roster searches, and your
     Review the requested permissions and click **Authorize**. Discord will redirect you back to c3esports.com automatically.
 
     {/* TODO: add screenshot */}
+
     ![Discord OAuth authorization screen showing C3 Esports requesting identify and email scopes](../images/linking-discord-oauth-screen.png)
   </Step>
   <Step title="Confirm the link">
     After the redirect, your Discord username and avatar will appear under Connected Accounts. You are now fully linked.
 
     {/* TODO: add screenshot */}
+
     ![Connected Accounts section showing a green checkmark and Discord username](../images/linking-discord-success.png)
   </Step>
 </Steps>
@@ -73,10 +81,10 @@ Without a linked Discord account, you cannot appear in roster searches, and your
 
 When you authorize, the platform requests only two Discord OAuth scopes:
 
-| Scope | Purpose |
-|---|---|
-| `identify` | Reads your Discord username, discriminator, and avatar |
-| `email` | Associates your Discord email with your account for deduplication |
+| Scope      | Purpose                                                           |
+| ---------- | ----------------------------------------------------------------- |
+| `identify` | Reads your Discord username, discriminator, and avatar            |
+| `email`    | Associates your Discord email with your account for deduplication |
 
 We do **not** request permission to send messages as you, read your DMs, manage your servers, or join servers on your behalf.
 
